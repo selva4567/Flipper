@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.MotionLayout
-import com.selvakumarsm.flipper.ExpandableView.Companion.EXPANDED
+import kotlinx.coroutines.*
 
 abstract class FlexibleView : MotionLayout {
 
@@ -14,15 +14,15 @@ abstract class FlexibleView : MotionLayout {
         private const val TAG = "FlexibleView"
     }
 
-    // Supported behaviors when a new view is added to this layout.
-    enum class ViewBehavior {
+    // Supported transitions when a new view is added to this layout.
+    enum class TransitionState {
         EXPAND_AND_COLLAPSE_CHILD_VIEWS, // Adds the new view in expanded state and collapses rest of the views
         JUST_EXPAND // Adds the new view in expanded state and does not change the state of other views
     }
 
     class LayoutConfig(
         val viewGapInDp: Int = 20,
-        val viewBehavior: ViewBehavior = ViewBehavior.EXPAND_AND_COLLAPSE_CHILD_VIEWS
+        val transitionState: TransitionState = TransitionState.EXPAND_AND_COLLAPSE_CHILD_VIEWS
     )
 
     //Field for gap between views (weight) - FloatArray
@@ -69,12 +69,13 @@ abstract class FlexibleView : MotionLayout {
     fun collapseView(view: CollapsableView) = view.collapse()
 
     private fun expandOrCollapseViews(view: View) {
-        when (layoutConfig.viewBehavior) {
-            ViewBehavior.JUST_EXPAND -> {
+        when (layoutConfig.transitionState) {
+            TransitionState.JUST_EXPAND -> {
                 expandView(view as CollapsableView)
             }
-            ViewBehavior.EXPAND_AND_COLLAPSE_CHILD_VIEWS -> {
+            TransitionState.EXPAND_AND_COLLAPSE_CHILD_VIEWS -> {
                 collapseAllChildViews()
+                //TODO wait till all childs are collapsed and then expand this view.
                 expandView(view as CollapsableView)
             }
         }
@@ -82,7 +83,7 @@ abstract class FlexibleView : MotionLayout {
 
     private fun collapseAllChildViews() {
         (0 until childCount).forEach { index ->
-            (getChildAt(index) as CollapsableView).collapse()
+            collapseView(getChildAt(index) as CollapsableView)
             Log.d(TAG, "collapseAllChildViews: Collapsed $index")
         }
     }

@@ -9,6 +9,7 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.selvakumarsm.flipper.flexyview.CollapsableView
 import com.selvakumarsm.flipper.flexyview.FlexibleView
 import com.selvakumarsm.flipper.flexyview.VerticalStackView
 
@@ -33,42 +34,28 @@ class MainActivity : AppCompatActivity() {
         R.drawable.fb_12
     )
     var imageIndex = 0
+    val viewList = mutableListOf<CollapsableView>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_popular_areas)
         frameContainer = findViewById(R.id.container)
-        frameContainer.layoutConfig = FlexibleView.LayoutConfig(viewBehavior = FlexibleView.ViewBehavior.EXPAND_AND_COLLAPSE_CHILD_VIEWS)
+        frameContainer.layoutConfig = FlexibleView.LayoutConfig(transitionState = FlexibleView.TransitionState.EXPAND_AND_COLLAPSE_CHILD_VIEWS)
         addButtom = findViewById(R.id.add)
-        var index = 1
-        val view1 = getView1()
-        Log.d(TAG, "onCreate: ${view1.id}")
-        val view2 = getView1()
-        Log.d(TAG, "onCreate: ${view2.id}")
-        val view3 = getView1()
-        Log.d(TAG, "onCreate: ${view3.id}")
         addButtom.setOnClickListener {
-            when (index) {
-                1 -> frameContainer.addView(view1)
-                2 -> frameContainer.addView(view2)
-                3 -> frameContainer.addView(view3)
-            }
-            index++
+            val view = getView1()
+            viewList.add(view)
+            frameContainer.addView(view)
         }
-        var rIndex = 0
         deleteButton = findViewById(R.id.align)
         deleteButton.setOnClickListener {
-            when(rIndex) {
-                0 -> frameContainer.removeView(view1)
-                1 -> frameContainer.removeView(view2)
-                2 -> frameContainer.removeView(view3)
-            }
-            rIndex++
+            val view = viewList.removeAt(0)
+            frameContainer.removeView(view)
         }
     }
 
-    fun getView1() : View {
-        val view = layoutInflater.inflate(R.layout.layout_card_template, frameContainer, false)
+    fun getView1() : CollapsableView {
+        val view = layoutInflater.inflate(R.layout.layout_card_template, frameContainer, false) as CollapsableView
         view.id = View.generateViewId()
         hashMap[view.id] = "collapsed"
         if (view is MotionLayout) {

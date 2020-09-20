@@ -25,9 +25,11 @@ class VerticalStackView : FlexibleView {
         defStyleAttr
     )
 
+    // TODO - override rest of the removeView overloaded methods as well
     override fun removeView(view: View?) {
         if (view == null || view !is MotionLayout)
             throw IllegalArgumentException("Cannot remove view if it is not MotionLayout")
+
         TransitionManager.beginDelayedTransition(this)
         constrainToViewAbove(view)
         super.removeView(view)

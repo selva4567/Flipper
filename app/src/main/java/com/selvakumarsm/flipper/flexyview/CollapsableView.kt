@@ -2,13 +2,16 @@ package com.selvakumarsm.flipper.flexyview
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import androidx.constraintlayout.motion.widget.MotionLayout
+import com.selvakumarsm.flipper.R
 import java.lang.IllegalArgumentException
 
 class CollapsableView : MotionLayout {
 
     companion object {
         private const val TAG = "CollapsableView"
+        const val TRANSITION_DURATION = 1000
     }
 
     enum class State {
@@ -26,12 +29,18 @@ class CollapsableView : MotionLayout {
     )
 
     internal fun expand() {
+        Log.d(TAG, "expand: $id")
+        setTransition(currentState, R.id.expanded)
+        setTransitionDuration(TRANSITION_DURATION)
         transitionToEnd()
         state = State.EXPANDED
     }
 
     internal fun collapse() {
-        transitionToStart()
+        Log.d(TAG, "collapse: $id")
+        setTransition(currentState, R.id.collapsed)
+        setTransitionDuration(TRANSITION_DURATION)
+        transitionToEnd()
         state = State.COLLAPSED
     }
 
