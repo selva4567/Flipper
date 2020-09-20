@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:motionInterpolator="easeInOut">
+        <OnSwipe
+            motion:onTouchUp="autoComplete"
+            motion:dragDirection="dragUp"
+            motion:touchRegionId="@+id/header"/>
+        <KeyFrameSet>
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="80"
+                motion:motionTarget="@+id/play"/>
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="90"
+                motion:motionTarget="@+id/pause"/>
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="30"
+                motion:motionTarget="@+id/details"/>
+        </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/header">
+            <CustomAttribute
+                motion:attributeName="radius"
+                motion:customDimension="16dp"/>
+        </Constraint>
+        <Constraint android:id="@+id/description"
+            motion:layout_editor_absoluteY="511dp"
+            motion:layout_editor_absoluteX="101dp">
+            <Transform
+                android:elevation="4dp"/>
+            <PropertySet
+                android:alpha="1"/>
+        </Constraint>
+        <Constraint android:id="@+id/play">
+            <PropertySet
+                android:alpha="0"/>
+        </Constraint>
+        <Constraint android:id="@+id/pause">
+            <PropertySet
+                android:alpha="0"/>
+        </Constraint>
+        <Constraint android:id="@+id/details">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"/>
+            <PropertySet android:alpha="0"/>
+        </Constraint>
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/header">
+            <Layout
+                motion:layout_constraintDimensionRatio="16:9"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp" />
+            <Transform
+                android:elevation="2dp"/>
+            <CustomAttribute
+                motion:attributeName="radius"
+                motion:customDimension="0dp"/>
+        </Constraint>
+
+        <Constraint android:id="@+id/description">
+            <Transform
+                android:elevation="4dp"/>
+        </Constraint>
+        <Constraint android:id="@+id/play">
+            <Transform
+                android:scaleX="2"
+                android:scaleY="2"
+                />
+            <PropertySet
+                android:alpha="1"/>
+        </Constraint>
+        <Constraint android:id="@+id/pause">
+            <PropertySet
+                android:alpha="1"/>
+        </Constraint>
+        <Constraint android:id="@+id/details">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                motion:layout_constraintTop_toBottomOf="@id/header"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"/>
+            <Transform
+                android:translationY="50dp"/>
+            <PropertySet
+                android:alpha="1"/>
+        </Constraint>
+    </ConstraintSet>
+</MotionScene>
