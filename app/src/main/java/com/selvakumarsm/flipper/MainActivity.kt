@@ -10,12 +10,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.selvakumarsm.flipper.flexyview.CollapsableView
+import com.selvakumarsm.flipper.flexyview.FlexibleStackView
 import com.selvakumarsm.flipper.flexyview.FlexibleView
 import com.selvakumarsm.flipper.flexyview.VerticalStackView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), FlexibleView.ViewStateChangeListener {
 
     private lateinit var frameContainer: VerticalStackView
+    private lateinit var stackContainer: FlexibleStackView
     private lateinit var addButtom: FloatingActionButton
     private lateinit var deleteButton: FloatingActionButton
     private val hashMap = HashMap<Int, String>()
@@ -39,8 +41,24 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_popular_areas)
+//        stackContainer = findViewById(R.id.container)
+//        stackContainer.layoutConfig = FlexibleView.LayoutConfig(transitionState = FlexibleView.TransitionState.JUST_EXPAND)
+//        stackContainer.viewStateChangeListener = this
+//        addButtom = findViewById(R.id.add)
+//        addButtom.setOnClickListener {
+//            val view = getView2()
+//            viewList.add(view)
+//            stackContainer.addView(view)
+//        }
+//        deleteButton = findViewById(R.id.align)
+//        deleteButton.setOnClickListener {
+//            val view = viewList.removeAt(0)
+//            stackContainer.removeView(view)
+//        }
+
         frameContainer = findViewById(R.id.container)
         frameContainer.layoutConfig = FlexibleView.LayoutConfig(transitionState = FlexibleView.TransitionState.EXPAND_AND_COLLAPSE_CHILD_VIEWS)
+        frameContainer.viewStateChangeListener = this
         addButtom = findViewById(R.id.add)
         addButtom.setOnClickListener {
             val view = getView1()
@@ -57,55 +75,29 @@ class MainActivity : AppCompatActivity() {
     fun getView1() : CollapsableView {
         val view = layoutInflater.inflate(R.layout.layout_card_template, frameContainer, false) as CollapsableView
         view.id = View.generateViewId()
-        hashMap[view.id] = "collapsed"
-        if (view is MotionLayout) {
-            view.apply {
-                setOnClickListener {
-                    if (hashMap[id] == "collapsed") {
-                        val motionView = it as MotionLayout
-                        motionView.transitionToEnd()
-                        hashMap[id] = "expanded"
-                    } else {
-                        val motionView = it as MotionLayout
-                        motionView.transitionToStart()
-                        hashMap[id] = "collapsed"
-                    }
-                }
-            }
-        }
         return view
     }
 
-    fun getView2() : View {
-        val view = layoutInflater.inflate(R.layout.layout_card_template, frameContainer, false)
+    fun getView2() : CollapsableView {
+        val view = layoutInflater.inflate(R.layout.layout_card_template, stackContainer, false) as CollapsableView
         view.id = View.generateViewId()
-        hashMap[view.id] = "collapsed"
-        if (view is MotionLayout) {
-            view.findViewById<MaterialCardView>(R.id.cardView).apply {
-                setCardBackgroundColor(Color.GREEN)
-            }
-            view.apply {
-                layoutParams = ConstraintLayout.LayoutParams(
-                    ConstraintLayout.LayoutParams.MATCH_PARENT,
-                    ConstraintLayout.LayoutParams.WRAP_CONTENT
-                )
-                setOnClickListener {
-                    if (hashMap[id] == "collapsed") {
-                        val motionView = it as MotionLayout
-                        motionView.transitionToEnd()
-                        hashMap[id] = "expanded"
-                    } else {
-                        val motionView = it as MotionLayout
-                        motionView.transitionToStart()
-                        hashMap[id] = "collapsed"
-                    }
-                }
-            }
-        }
         return view
     }
 
     companion object {
         const val TAG = "MainActivity"
+    }
+
+    override fun onExpanded(view: View) {
+        Log.d(TAG, "onExpanded: ${view.id}")
+    }
+
+    override fun onCollapsed(view: View) {
+        Log.d(TAG, "onCollapsed: ${view.id}")
+
+    }
+
+    override fun onStateTransitionInProgress(view: View) {
+        Log.d(TAG, "on animation in progress: ${view.id}")
     }
 }

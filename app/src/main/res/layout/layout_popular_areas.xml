@@ -13,9 +13,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.selvakumarsm.flipper.flexyview.VerticalStackView
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></com.selvakumarsm.flipper.flexyview.VerticalStackView>
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></com.selvakumarsm.flipper.flexyview.VerticalStackView>
+<!--        <com.selvakumarsm.flipper.flexyview.FlexibleStackView-->
+<!--            android:id="@+id/container"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"/>-->
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

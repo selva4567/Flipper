@@ -29,16 +29,16 @@ class CollapsableView : MotionLayout {
     )
 
     internal fun expand() {
-        Log.d(TAG, "expand: $id")
-        setTransition(currentState, R.id.expanded)
+        Log.d(TAG, "expand: $id to ${R.id.expanded}")
+        setTransition(R.id.collapsed, R.id.expanded)
         setTransitionDuration(TRANSITION_DURATION)
         transitionToEnd()
         state = State.EXPANDED
     }
 
     internal fun collapse() {
-        Log.d(TAG, "collapse: $id")
-        setTransition(currentState, R.id.collapsed)
+        Log.d(TAG, "collapse: $id to ${R.id.collapsed}")
+        setTransition(R.id.expanded, R.id.collapsed)
         setTransitionDuration(TRANSITION_DURATION)
         transitionToEnd()
         state = State.COLLAPSED

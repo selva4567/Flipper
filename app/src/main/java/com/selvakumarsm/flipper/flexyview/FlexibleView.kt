@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.MotionLayout
-import kotlinx.coroutines.*
+import com.selvakumarsm.flipper.R
 
 abstract class FlexibleView : MotionLayout {
 
@@ -25,10 +25,15 @@ abstract class FlexibleView : MotionLayout {
         val transitionState: TransitionState = TransitionState.EXPAND_AND_COLLAPSE_CHILD_VIEWS
     )
 
-    //Field for gap between views (weight) - FloatArray
-    //Field for transition - MotionLayout.Transition
+    interface ViewStateChangeListener {
+        fun onExpanded(view: View)
+        fun onCollapsed(view: View)
+        fun onStateTransitionInProgress(view: View)
+        // TODO - Add callbacks for view removed/added
+    }
 
     var layoutConfig = LayoutConfig()
+    var viewStateChangeListener: ViewStateChangeListener? = null
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
@@ -50,14 +55,37 @@ abstract class FlexibleView : MotionLayout {
         Log.d(TAG, "addView: ${child.id}")
         // TODO - might want to get the params directly from child view
         child.layoutParams = getChildLayoutParams()
+        child.setOnClickListener { toggleViewState(child) }
+        child.setTransitionListener(object : TransitionListener {
+            override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
+                // TODO - might want to provide update on this to the listeners
+            }
+
+            override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {
+                // TODO - might want to provide update on this to the listeners
+            }
+
+            override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
+                val child = p0 as CollapsableView
+                Log.d(TAG, "onTransitionCompleted: ${child.id} $p1 ${child.state}")
+                when (child.state) {
+                    CollapsableView.State.EXPANDED -> viewStateChangeListener?.onExpanded(p0!!)
+                    CollapsableView.State.COLLAPSED -> viewStateChangeListener?.onCollapsed(p0!!)
+                    else -> Log.w(
+                        TAG,
+                        "onTransitionCompleted: Unknown transaction state change for view ${p0?.id}, transaction state $p1"
+                    )
+                }
+            }
+
+            override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
+                // TODO - might want to provide update on this to the listeners
+            }
+
+        })
         super.addView(child)
         expandOrCollapseViews(child)
         applyConstraint(child)
-    }
-
-    override fun onViewAdded(view: View?) {
-        super.onViewAdded(view)
-        Log.d(TAG, "onViewAdded: ${view?.id}")
     }
 
     protected abstract fun getChildLayoutParams(): ViewGroup.LayoutParams
@@ -68,6 +96,8 @@ abstract class FlexibleView : MotionLayout {
 
     fun collapseView(view: CollapsableView) = view.collapse()
 
+    fun toggleViewState(view: CollapsableView) = view.toggle()
+
     private fun expandOrCollapseViews(view: View) {
         when (layoutConfig.transitionState) {
             TransitionState.JUST_EXPAND -> {
@@ -75,14 +105,14 @@ abstract class FlexibleView : MotionLayout {
             }
             TransitionState.EXPAND_AND_COLLAPSE_CHILD_VIEWS -> {
                 collapseAllChildViews()
-                //TODO wait till all childs are collapsed and then expand this view.
+                //TODO wait till all childs are collapsed and then expand this view. Use Transition Listeners attached in the child view.
                 expandView(view as CollapsableView)
             }
         }
     }
 
     private fun collapseAllChildViews() {
-        (0 until childCount).forEach { index ->
+        (0 until childCount - 1).forEach { index ->
             collapseView(getChildAt(index) as CollapsableView)
             Log.d(TAG, "collapseAllChildViews: Collapsed $index")
         }

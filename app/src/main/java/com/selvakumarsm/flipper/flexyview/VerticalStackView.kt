@@ -31,10 +31,11 @@ class VerticalStackView : FlexibleView {
             throw IllegalArgumentException("Cannot remove view if it is not MotionLayout")
 
         TransitionManager.beginDelayedTransition(this)
-        constrainToViewAbove(view)
+        reConstrainNeighbourViews(view)
         super.removeView(view)
     }
 
+    // TODO - Is it really needed now???
     override fun getChildLayoutParams(): ViewGroup.LayoutParams =
         LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
@@ -65,7 +66,7 @@ class VerticalStackView : FlexibleView {
         constraintSet.applyTo(this)
     }
 
-    private fun constrainToViewAbove(view: View) {
+    private fun reConstrainNeighbourViews(view: View) {
         val viewIndex = indexOfChild(view)
         if (viewIndex == -1)
             throw IllegalArgumentException("View not found in the hierarchy")
