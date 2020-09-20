@@ -1,4 +1,4 @@
-package com.selvakumarsm.flipper
+package com.selvakumarsm.flipper.flexyview
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.MotionLayout
+import com.selvakumarsm.flipper.ExpandableView.Companion.EXPANDED
 
 abstract class FlexibleView : MotionLayout {
 
@@ -13,17 +14,20 @@ abstract class FlexibleView : MotionLayout {
         private const val TAG = "FlexibleView"
     }
 
-    class LayoutConfig(val viewGapInDp: Int = 20, val viewMode: ViewMode = ViewMode.EXPANDED) {
-
-        enum class ViewMode {
-            EXPANDED, COLLAPSED, EXPAND_AND_COLLAPSE_CHILD_VIEWS
-        }
+    // Supported behaviors when a new view is added to this layout.
+    enum class ViewBehavior {
+        EXPAND_AND_COLLAPSE_CHILD_VIEWS, // Adds the new view in expanded state and collapses rest of the views
+        JUST_EXPAND // Adds the new view in expanded state and does not change the state of other views
     }
+
+    class LayoutConfig(
+        val viewGapInDp: Int = 20,
+        val viewBehavior: ViewBehavior = ViewBehavior.EXPAND_AND_COLLAPSE_CHILD_VIEWS
+    )
 
     //Field for gap between views (weight) - FloatArray
     //Field for transition - MotionLayout.Transition
 
-    private val childIndex = ArrayList<Int>()
     var layoutConfig = LayoutConfig()
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
@@ -40,10 +44,11 @@ abstract class FlexibleView : MotionLayout {
     }
 
     override fun addView(child: View?) {
-        if (child == null || child !is MotionLayout)
-            throw IllegalArgumentException("View to be added must be a MotionLayout")
+        if (child == null || child !is CollapsableView)
+            throw IllegalArgumentException("View to be added must be a CollapsableView")
 
         Log.d(TAG, "addView: ${child.id}")
+        // TODO - might want to get the params directly from child view
         child.layoutParams = getChildLayoutParams()
         super.addView(child)
         expandOrCollapseViews(child)
@@ -55,34 +60,30 @@ abstract class FlexibleView : MotionLayout {
         Log.d(TAG, "onViewAdded: ${view?.id}")
     }
 
-
-    abstract fun expandView(view: View)
-
-    abstract fun collapseView(view: View)
-
     protected abstract fun getChildLayoutParams(): ViewGroup.LayoutParams
 
     protected abstract fun applyConstraint(child: View)
 
+    fun expandView(view: CollapsableView) = view.expand()
+
+    fun collapseView(view: CollapsableView) = view.collapse()
+
     private fun expandOrCollapseViews(view: View) {
-        when (layoutConfig.viewMode) {
-            LayoutConfig.ViewMode.EXPANDED -> {
-
+        when (layoutConfig.viewBehavior) {
+            ViewBehavior.JUST_EXPAND -> {
+                expandView(view as CollapsableView)
             }
-            LayoutConfig.ViewMode.COLLAPSED -> {
-
-            }
-            LayoutConfig.ViewMode.EXPAND_AND_COLLAPSE_CHILD_VIEWS -> {
+            ViewBehavior.EXPAND_AND_COLLAPSE_CHILD_VIEWS -> {
                 collapseAllChildViews()
-                expandView(view)
+                expandView(view as CollapsableView)
             }
         }
     }
 
     private fun collapseAllChildViews() {
-        (0 until childCount).forEach {childIndex ->
-            collapseView(getChildAt(childIndex))
-            Log.d(TAG, "collapseAllChildViews: Collapsed $childIndex")
+        (0 until childCount).forEach { index ->
+            (getChildAt(index) as CollapsableView).collapse()
+            Log.d(TAG, "collapseAllChildViews: Collapsed $index")
         }
     }
 

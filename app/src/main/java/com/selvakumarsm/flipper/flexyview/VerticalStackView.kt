@@ -1,4 +1,4 @@
-package com.selvakumarsm.flipper
+package com.selvakumarsm.flipper.flexyview
 
 import android.content.Context
 import android.util.AttributeSet
@@ -24,22 +24,6 @@ class VerticalStackView : FlexibleView {
         attrs,
         defStyleAttr
     )
-
-    override fun expandView(view: View) {
-        if (view !is MotionLayout)
-            throw IllegalArgumentException("Cannot expand view if it is not MotionLayout")
-        view.apply {
-            transitionToEnd()
-        }
-    }
-
-    override fun collapseView(view: View) {
-        if (view !is MotionLayout)
-            throw IllegalArgumentException("Cannot collapse view if it is not MotionLayout")
-        view.apply {
-            transitionToStart()
-        }
-    }
 
     override fun removeView(view: View?) {
         if (view == null || view !is MotionLayout)

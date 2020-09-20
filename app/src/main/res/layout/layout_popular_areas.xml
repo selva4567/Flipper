@@ -12,10 +12,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.selvakumarsm.flipper.VerticalStackView
+        <com.selvakumarsm.flipper.flexyview.VerticalStackView
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></com.selvakumarsm.flipper.VerticalStackView>
+            android:layout_height="wrap_content"></com.selvakumarsm.flipper.flexyview.VerticalStackView>
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

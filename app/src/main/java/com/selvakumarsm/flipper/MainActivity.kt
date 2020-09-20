@@ -2,15 +2,15 @@ package com.selvakumarsm.flipper
 
 import android.graphics.Color
 import android.os.Bundle
-import android.transition.TransitionManager
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.selvakumarsm.flipper.flexyview.FlexibleView
+import com.selvakumarsm.flipper.flexyview.VerticalStackView
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_popular_areas)
         frameContainer = findViewById(R.id.container)
-        frameContainer.layoutConfig = FlexibleView.LayoutConfig(viewMode = FlexibleView.LayoutConfig.ViewMode.EXPAND_AND_COLLAPSE_CHILD_VIEWS)
+        frameContainer.layoutConfig = FlexibleView.LayoutConfig(viewBehavior = FlexibleView.ViewBehavior.EXPAND_AND_COLLAPSE_CHILD_VIEWS)
         addButtom = findViewById(R.id.add)
         var index = 1
         val view1 = getView1()

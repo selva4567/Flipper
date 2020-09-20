@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.selvakumarsm.flipper.flexyview.CollapsableView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_root"
@@ -17,9 +17,9 @@
         android:id="@+id/profilePic"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/fb_2"
+        android:elevation="10dp"
         android:scaleType="centerCrop"
-        android:elevation="10dp" />
+        android:src="@drawable/fb_2" />
 
     <TextView
         android:id="@+id/name"
@@ -44,4 +44,4 @@
         android:elevation="10dp"
         android:text="@string/desc" />
 
-</androidx.constraintlayout.motion.widget.MotionLayout>
+</com.selvakumarsm.flipper.flexyview.CollapsableView>
