@@ -6,44 +6,42 @@
     android:id="@+id/item_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     app:layoutDescription="@xml/layout_order_item_scene"
     app:collapsedSceneId="@+id/collapsed"
     app:expandedSceneId="@+id/expanded">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardView"
+    <TextView
+        android:id="@+id/tvProductPrice"
         android:layout_width="0dp"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:text="@string/sony_xm4_price" />
 
     <ImageView
-        android:id="@+id/profilePic"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:elevation="10dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/fb_2" />
+        android:id="@+id/tvProductImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:elevation="3dp"
+        android:src="@drawable/sony" />
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/tvProductName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:elevation="10dp"
-        android:text="Bhuvana Balakrishnan"
-        android:textSize="19sp" />
+        android:layout_marginTop="32dp"
+        android:elevation="2dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="16sp"
+        android:text="@string/sony_xm4" />
 
     <TextView
-        android:id="@+id/aboutLabel"
+        android:id="@+id/tvInStackLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:elevation="10dp"
-        android:text="About"
-        android:textSize="20sp" />
+        android:elevation="2dp"
+        android:text="@string/in_stock"
+        android:textColor="@android:color/holo_green_dark" />
 
-    <TextView
-        android:id="@+id/about"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:elevation="10dp"
-        android:text="@string/desc" />
 
 </com.selvakumarsm.elasticmodule2.CollapsableView>
