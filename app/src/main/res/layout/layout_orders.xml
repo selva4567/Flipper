@@ -16,27 +16,19 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></com.selvakumarsm.elasticmodule2.ElasticVerticalView>
-        <!--        <com.selvakumarsm.flipper.flexyview.FlexibleStackView-->
-        <!--            android:id="@+id/container"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"/>-->
     </ScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add"
+    <Button
+        android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/align"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        app:layout_constraintBottom_toBottomOf="@id/add"
-        app:layout_constraintEnd_toStartOf="@+id/add"
-        app:layout_constraintTop_toTopOf="@id/add" />
+        android:text="Next"
+        android:textAllCaps="false"
+        android:layout_margin="10dp"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

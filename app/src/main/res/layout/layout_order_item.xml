@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <com.selvakumarsm.elasticmodule2.ElasticView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,16 +6,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
-    app:layoutDescription="@xml/layout_order_item_scene"
     app:collapsedSceneId="@+id/collapsed"
-    app:expandedSceneId="@+id/expanded">
+    app:expandedSceneId="@+id/expanded"
+    app:layoutDescription="@xml/layout_order_item_scene">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Review your orders"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/tvProductPrice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_red_dark"
-        android:text="@string/sony_xm4_price" />
+        android:textColor="@android:color/holo_red_dark" />
 
     <ImageView
         android:id="@+id/tvProductImage"
@@ -32,8 +38,7 @@
         android:layout_marginTop="32dp"
         android:elevation="2dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textSize="16sp"
-        android:text="@string/sony_xm4" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tvInStackLabel"
@@ -43,5 +48,12 @@
         android:text="@string/in_stock"
         android:textColor="@android:color/holo_green_dark" />
 
+    <ImageView
+        android:id="@+id/ivDownArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_expand"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/black" />
 
 </com.selvakumarsm.elasticmodule2.ElasticView>

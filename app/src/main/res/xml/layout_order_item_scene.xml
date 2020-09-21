@@ -3,12 +3,24 @@
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
     <ConstraintSet android:id="@+id/expanded">
+        <Constraint android:id="@id/tvTitle">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="10dp"/>
+        </Constraint>
+        <Constraint android:id="@+id/ivDownArrow">
+            <PropertySet android:visibility="gone" />
+        </Constraint>
         <Constraint android:id="@+id/tvProductImage">
             <Layout
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 motion:layout_constraintStart_toStartOf="parent"
-                motion:layout_constraintTop_toTopOf="parent" />
+                motion:layout_constraintTop_toBottomOf="@id/tvTitle" />
         </Constraint>
         <Constraint android:id="@+id/tvProductName">
             <Layout
@@ -40,28 +52,38 @@
 
     <ConstraintSet
         android:id="@+id/collapsed">
+        <Constraint android:id="@id/tvTitle">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="10dp"/>
+        </Constraint>
+        <Constraint android:id="@+id/ivDownArrow">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toEndOf="@+id/tvTitle"
+                motion:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="30dp"/>
+            <PropertySet android:visibility="visible" />
+        </Constraint>
         <Constraint android:id="@id/tvProductImage">
             <PropertySet
                 android:visibility="gone"/>
         </Constraint>
         <Constraint android:id="@+id/tvProductName">
-            <Layout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                motion:layout_constraintBottom_toBottomOf="parent"
-                motion:layout_constraintTop_toTopOf="parent"
-                motion:layout_constraintStart_toStartOf="parent"
-                motion:layout_constraintEnd_toStartOf="@+id/tvProductPrice" />
+            <PropertySet
+                android:visibility="gone"/>
         </Constraint>
         <Constraint android:id="@+id/tvProductPrice">
-            <Layout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                motion:layout_constraintTop_toTopOf="parent"
-                motion:layout_constraintBottom_toBottomOf="parent"
-                motion:layout_constraintEnd_toEndOf="parent" />
+            <PropertySet
+                android:visibility="gone"/>
         </Constraint>
         <Constraint android:id="@+id/tvInStackLabel">
             <PropertySet

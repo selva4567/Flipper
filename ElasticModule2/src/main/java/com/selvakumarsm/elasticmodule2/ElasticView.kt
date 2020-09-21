@@ -23,7 +23,7 @@ class ElasticView @JvmOverloads constructor(
 
     var state: State = State.EXPANDED
         private set
-
+    lateinit var viewTag: String
     private val collapsedSceneId: Int
     private val expandedSceneId: Int
 

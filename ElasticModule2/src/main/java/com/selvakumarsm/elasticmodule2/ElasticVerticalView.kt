@@ -32,11 +32,14 @@ class ElasticVerticalView : ElasticViewOrchestrator {
         TransitionManager.beginDelayedTransition(this)
         reConstrainNeighbourViews(view)
         super.removeView(view)
+        viewStateChangeListener?.onViewRemoved(view)
     }
 
     // TODO - Is it really needed now???
     override fun getChildLayoutParams(): ViewGroup.LayoutParams =
-        LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+        LayoutParams(MATCH_PARENT, WRAP_CONTENT).also {
+            it.topMargin = fromDp(context, layoutConfig.viewGapInDp)
+        }
 
     override fun applyConstraint(child: View) {
         TransitionManager.beginDelayedTransition(this)

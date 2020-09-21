@@ -28,6 +28,8 @@ abstract class ElasticViewOrchestrator : MotionLayout {
         fun onExpanded(view: View)
         fun onCollapsed(view: View)
         fun onStateTransitionInProgress(view: View)
+        fun onViewAdded(view: View)
+        fun onViewRemoved(view: View)
         // TODO - Add callbacks for view removed/added
     }
 
@@ -85,6 +87,7 @@ abstract class ElasticViewOrchestrator : MotionLayout {
         super.addView(child)
         expandOrCollapseViews(child)
         applyConstraint(child)
+        viewStateChangeListener?.onViewAdded(child)
     }
 
     protected abstract fun getChildLayoutParams(): ViewGroup.LayoutParams
