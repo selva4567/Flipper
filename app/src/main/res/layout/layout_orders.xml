@@ -18,17 +18,14 @@
             android:layout_height="wrap_content"></com.selvakumarsm.elasticmodule2.ElasticVerticalView>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btnNext"
+    <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Next"
-        android:textAllCaps="false"
-        android:layout_margin="10dp"
-        android:paddingStart="25dp"
-        android:paddingEnd="25dp"
-        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="10dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

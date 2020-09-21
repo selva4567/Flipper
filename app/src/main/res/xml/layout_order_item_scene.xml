@@ -11,6 +11,7 @@
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintTop_toTopOf="parent"
                 android:layout_marginStart="10dp"/>
+
         </Constraint>
         <Constraint android:id="@+id/ivDownArrow">
             <PropertySet android:visibility="gone" />

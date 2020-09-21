@@ -1,16 +1,17 @@
 package com.selvakumarsm.flipper
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.selvakumarsm.elasticmodule2.ElasticVerticalView
 import com.selvakumarsm.elasticmodule2.ElasticView
 import com.selvakumarsm.elasticmodule2.ElasticViewOrchestrator
 import com.selvakumarsm.flipper.orders.presentation.OrdersViewModel
-import kotlinx.android.synthetic.main.layout_orders.*
 
 class OrdersActivity : AppCompatActivity(), ElasticViewOrchestrator.ViewStateChangeListener {
 
@@ -22,74 +23,62 @@ class OrdersActivity : AppCompatActivity(), ElasticViewOrchestrator.ViewStateCha
     }
 
     private val ordersViewModel: OrdersViewModel by viewModels()
-    private lateinit var frameContainer: ElasticVerticalView
-    private lateinit var nextButtom: Button
+
+    //views
+    private lateinit var elasticContainer: ElasticVerticalView
+    private lateinit var progressBar: ProgressBar
 
     private var reviewOrderView: ElasticView? = null
     private var selectShippingDetailsView: ElasticView? = null
     private var selectPaymentMethodView: ElasticView? = null
 
-    var viewIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_orders)
+        //view setup
+        progressBar = findViewById(R.id.progressBar)
+        setupElasticContainer()
+        setupOrderReviewPage()
+    }
 
-        frameContainer = findViewById(R.id.container)
-        frameContainer.layoutConfig =
-            ElasticViewOrchestrator.LayoutConfig(transitionState = ElasticViewOrchestrator.TransitionState.EXPAND_AND_COLLAPSE_CHILD_VIEWS)
-        frameContainer.viewStateChangeListener = this
+    private fun setupOrderReviewPage() {
+        ordersViewModel.savedItemsLiveData.observe(this) {
+            if (it == null || it.isEmpty())
+                return@observe
 
-        nextButtom = findViewById(R.id.btnNext)
-        nextButtom.setOnClickListener {
-            val view = when (viewIndex) {
-                0 -> {
-                    getView(R.layout.layout_order_item).also {
-                        it.viewTag = REVIEW_ORDER
-                    }
-                }
-                1 -> {
-                    getView(R.layout.layout_shipping_address).also {
-                        it.viewTag = SELECT_SHIPPING_ADDRESS
-                    }
-                }
-                2 -> {
-                    getView(R.layout.layout_payment_methods).also {
-                        it.viewTag = SELECT_PAYMENT_METHOD
-                    }
-                }
-                else -> return@setOnClickListener
+            hideProgress()
+            // Adding order review screen 1 of 3
+            reviewOrderView = getView(R.layout.layout_order_item).apply {
+                viewTag = REVIEW_ORDER
             }
-            frameContainer.addView(view)
-            viewIndex++
-        }
-
-        if (savedInstanceState == null) {
-            ordersViewModel.savedItemsLiveData.observe(this) {
-                Log.d(TAG, "onCreate: Saved Items in cart is received ${it?.size}")
-                if (reviewOrderView == null) {
-                    reviewOrderView = getView(R.layout.layout_order_item).also {
-                        it.viewTag = REVIEW_ORDER
-                    }
-                    frameContainer.addView(reviewOrderView)
-
-                }
-                if (it == null || it.isEmpty())
-                    return@observe
-                val firstItemInCart = it[0]
-                Log.d(TAG, "onCreate: First Item in cart $firstItemInCart")
-            }
+            reviewOrderView?.findViewById<TextView>(R.id.tvProductName)?.text = it[0].productCode
+            reviewOrderView?.findViewById<TextView>(R.id.tvProductPrice)?.text = "\$${it[0].price}"
+            elasticContainer.addView(reviewOrderView)
         }
     }
 
-    fun getView(resource: Int): ElasticView {
-        val view = layoutInflater.inflate(
+    private fun hideProgress() {
+        progressBar.visibility = View.GONE
+    }
+
+    private fun showProgress() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun setupElasticContainer() {
+        elasticContainer = findViewById(R.id.container)
+        elasticContainer.layoutConfig =
+            ElasticViewOrchestrator.LayoutConfig(transitionState = ElasticViewOrchestrator.TransitionState.EXPAND_AND_COLLAPSE_CHILD_VIEWS)
+        elasticContainer.viewStateChangeListener = this
+    }
+
+    private fun getView(resource: Int): ElasticView {
+        return layoutInflater.inflate(
             resource,
-            frameContainer,
+            elasticContainer,
             false
         ) as ElasticView
-        view.id = View.generateViewId()
-        return view
     }
 
     override fun onExpanded(view: View) {
@@ -108,30 +97,7 @@ class OrdersActivity : AppCompatActivity(), ElasticViewOrchestrator.ViewStateCha
     override fun onViewAdded(view: View) {
         if (view !is ElasticView)
             return
-        when (view.viewTag) {
-            REVIEW_ORDER -> {
-                btnNext.text = "Select Billing Address"
-                btnNext.setOnClickListener {
-                    frameContainer.addView(getView(R.layout.layout_shipping_address).also {
-                        it.viewTag = SELECT_SHIPPING_ADDRESS
-                    })
-                }
-            }
-            SELECT_PAYMENT_METHOD -> {
-                btnNext.text = "Proceed To Pay"
-            }
-            SELECT_SHIPPING_ADDRESS -> {
-                btnNext.text = "Select Payment Method"
-                btnNext.setOnClickListener {
-                    frameContainer.addView(getView(R.layout.layout_payment_methods).also {
-                        it.viewTag = SELECT_PAYMENT_METHOD
-                    })
-                }
-            }
-            else -> {
 
-            }
-        }
     }
 
     override fun onViewRemoved(view: View) {
