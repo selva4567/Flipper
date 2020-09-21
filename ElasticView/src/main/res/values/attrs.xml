@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ElasticView">
+        <attr name="collapsedSceneId" format="integer"/>
+        <attr name="expandedSceneId" format="integer"/>
+    </declare-styleable>
+</resources>

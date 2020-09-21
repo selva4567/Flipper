@@ -28,7 +28,14 @@ class CollapsableView : MotionLayout {
         defStyleAttr
     )
 
+    init {
+
+    }
+
     internal fun expand() {
+        constraintSetIds.forEach {
+            Log.d(TAG, "expand: Constraint Id $it")
+        }
         Log.d(TAG, "expand: $id to ${R.id.expanded}")
         setTransition(R.id.collapsed, R.id.expanded)
         setTransitionDuration(TRANSITION_DURATION)
@@ -37,10 +44,13 @@ class CollapsableView : MotionLayout {
     }
 
     internal fun collapse() {
+        constraintSetIds.forEach {
+            Log.d(TAG, "expand: Constraint Id $it")
+        }
         Log.d(TAG, "collapse: $id to ${R.id.collapsed}")
         setTransition(R.id.expanded, R.id.collapsed)
         setTransitionDuration(TRANSITION_DURATION)
-        transitionToEnd()
+        transitionToStart()
         state = State.COLLAPSED
     }
 
