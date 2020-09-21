@@ -1,13 +1,12 @@
-package com.selvakumarsm.flipper.flexyview
+package com.selvakumarsm.elasticmodule2
 
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import androidx.constraintlayout.motion.widget.MotionLayout
-import com.selvakumarsm.flipper.R
-import java.lang.IllegalArgumentException
 
-class CollapsableView : MotionLayout {
+class CollapsableView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    MotionLayout(context, attrs, defStyleAttr) {
 
     companion object {
         private const val TAG = "CollapsableView"
@@ -21,23 +20,22 @@ class CollapsableView : MotionLayout {
     var state: State = State.EXPANDED
         private set
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    )
+    private val collapsedSceneId: Int
+    private val expandedSceneId: Int
 
     init {
-
+        val arr = context.obtainStyledAttributes(attrs, R.styleable.CollapsableView, 0, 0)
+        collapsedSceneId = arr.getResourceId(R.styleable.CollapsableView_collapsedSceneId, -1)
+        expandedSceneId = arr.getResourceId(R.styleable.CollapsableView_expandedSceneId, -1)
+        arr.recycle()
     }
 
     internal fun expand() {
         constraintSetIds.forEach {
             Log.d(TAG, "expand: Constraint Id $it")
         }
-        Log.d(TAG, "expand: $id to ${R.id.expanded}")
-        setTransition(R.id.collapsed, R.id.expanded)
+        Log.d(TAG, "expand: $id to $expandedSceneId")
+        setTransition(collapsedSceneId, expandedSceneId)
         setTransitionDuration(TRANSITION_DURATION)
         transitionToEnd()
         state = State.EXPANDED
@@ -47,8 +45,8 @@ class CollapsableView : MotionLayout {
         constraintSetIds.forEach {
             Log.d(TAG, "expand: Constraint Id $it")
         }
-        Log.d(TAG, "collapse: $id to ${R.id.collapsed}")
-        setTransition(R.id.expanded, R.id.collapsed)
+        Log.d(TAG, "collapse: $id to $collapsedSceneId")
+        setTransition(expandedSceneId, collapsedSceneId)
         setTransitionDuration(TRANSITION_DURATION)
         transitionToStart()
         state = State.COLLAPSED

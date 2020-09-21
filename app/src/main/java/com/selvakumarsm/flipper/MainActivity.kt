@@ -1,18 +1,14 @@
 package com.selvakumarsm.flipper
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.card.MaterialCardView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.selvakumarsm.flipper.flexyview.CollapsableView
-import com.selvakumarsm.flipper.flexyview.FlexibleStackView
-import com.selvakumarsm.flipper.flexyview.FlexibleView
-import com.selvakumarsm.flipper.flexyview.VerticalStackView
+import com.selvakumarsm.elasticmodule2.CollapsableView
+import com.selvakumarsm.elasticmodule2.FlexibleStackView
+import com.selvakumarsm.elasticmodule2.FlexibleView
+import com.selvakumarsm.elasticmodule2.VerticalStackView
 
 class MainActivity : AppCompatActivity(), FlexibleView.ViewStateChangeListener {
 

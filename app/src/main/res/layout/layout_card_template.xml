@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.selvakumarsm.flipper.flexyview.CollapsableView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.selvakumarsm.elasticmodule2.CollapsableView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layoutDescription="@xml/layout_card_template_scene">
+    app:layoutDescription="@xml/layout_card_template_scene"
+    app:collapsedSceneId="@+id/collapsed"
+    app:expandedSceneId="@+id/expanded">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
@@ -44,4 +46,4 @@
         android:elevation="10dp"
         android:text="@string/desc" />
 
-</com.selvakumarsm.flipper.flexyview.CollapsableView>
+</com.selvakumarsm.elasticmodule2.CollapsableView>
