@@ -5,15 +5,15 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.selvakumarsm.elasticmodule2.CollapsableView
-import com.selvakumarsm.elasticmodule2.FlexibleStackView
-import com.selvakumarsm.elasticmodule2.FlexibleView
-import com.selvakumarsm.elasticmodule2.VerticalStackView
+import com.selvakumarsm.elasticmodule2.ElasticView
+import com.selvakumarsm.elasticmodule2.ElasticStackView
+import com.selvakumarsm.elasticmodule2.ElasticViewOrchestrator
+import com.selvakumarsm.elasticmodule2.ElasticVerticalView
 
-class MainActivity : AppCompatActivity(), FlexibleView.ViewStateChangeListener {
+class MainActivity : AppCompatActivity(), ElasticViewOrchestrator.ViewStateChangeListener {
 
-    private lateinit var frameContainer: VerticalStackView
-    private lateinit var stackContainer: FlexibleStackView
+    private lateinit var frameContainer: ElasticVerticalView
+    private lateinit var stackContainer: ElasticStackView
     private lateinit var addButtom: FloatingActionButton
     private lateinit var deleteButton: FloatingActionButton
     private val hashMap = HashMap<Int, String>()
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), FlexibleView.ViewStateChangeListener {
         R.drawable.fb_12
     )
     var imageIndex = 0
-    val viewList = mutableListOf<CollapsableView>()
+    val viewList = mutableListOf<ElasticView>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), FlexibleView.ViewStateChangeListener {
 //        }
 
         frameContainer = findViewById(R.id.container)
-        frameContainer.layoutConfig = FlexibleView.LayoutConfig(transitionState = FlexibleView.TransitionState.EXPAND_AND_COLLAPSE_CHILD_VIEWS)
+        frameContainer.layoutConfig = ElasticViewOrchestrator.LayoutConfig(transitionState = ElasticViewOrchestrator.TransitionState.EXPAND_AND_COLLAPSE_CHILD_VIEWS)
         frameContainer.viewStateChangeListener = this
         addButtom = findViewById(R.id.add)
         addButtom.setOnClickListener {
@@ -68,14 +68,14 @@ class MainActivity : AppCompatActivity(), FlexibleView.ViewStateChangeListener {
         }
     }
 
-    fun getView1() : CollapsableView {
-        val view = layoutInflater.inflate(R.layout.layout_card_template, frameContainer, false) as CollapsableView
+    fun getView1() : ElasticView {
+        val view = layoutInflater.inflate(R.layout.layout_card_template, frameContainer, false) as ElasticView
         view.id = View.generateViewId()
         return view
     }
 
-    fun getView2() : CollapsableView {
-        val view = layoutInflater.inflate(R.layout.layout_card_template, stackContainer, false) as CollapsableView
+    fun getView2() : ElasticView {
+        val view = layoutInflater.inflate(R.layout.layout_card_template, stackContainer, false) as ElasticView
         view.id = View.generateViewId()
         return view
     }

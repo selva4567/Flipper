@@ -5,19 +5,19 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.selvakumarsm.elasticmodule2.CollapsableView
-import com.selvakumarsm.elasticmodule2.FlexibleStackView
-import com.selvakumarsm.elasticmodule2.FlexibleView
-import com.selvakumarsm.elasticmodule2.VerticalStackView
+import com.selvakumarsm.elasticmodule2.ElasticView
+import com.selvakumarsm.elasticmodule2.ElasticStackView
+import com.selvakumarsm.elasticmodule2.ElasticViewOrchestrator
+import com.selvakumarsm.elasticmodule2.ElasticVerticalView
 
-class OrdersActivity : AppCompatActivity(), FlexibleView.ViewStateChangeListener {
+class OrdersActivity : AppCompatActivity(), ElasticViewOrchestrator.ViewStateChangeListener {
 
-    private lateinit var frameContainer: VerticalStackView
-    private lateinit var stackContainer: FlexibleStackView
+    private lateinit var frameContainer: ElasticVerticalView
+    private lateinit var stackContainer: ElasticStackView
     private lateinit var addButtom: FloatingActionButton
     private lateinit var deleteButton: FloatingActionButton
 
-    val viewList = mutableListOf<CollapsableView>()
+    val viewList = mutableListOf<ElasticView>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,7 @@ class OrdersActivity : AppCompatActivity(), FlexibleView.ViewStateChangeListener
 
         frameContainer = findViewById(R.id.container)
         frameContainer.layoutConfig =
-            FlexibleView.LayoutConfig(transitionState = FlexibleView.TransitionState.EXPAND_AND_COLLAPSE_CHILD_VIEWS)
+            ElasticViewOrchestrator.LayoutConfig(transitionState = ElasticViewOrchestrator.TransitionState.EXPAND_AND_COLLAPSE_CHILD_VIEWS)
         frameContainer.viewStateChangeListener = this
         addButtom = findViewById(R.id.add)
         addButtom.setOnClickListener {
@@ -54,22 +54,22 @@ class OrdersActivity : AppCompatActivity(), FlexibleView.ViewStateChangeListener
         }
     }
 
-    fun getView1(): CollapsableView {
+    fun getView1(): ElasticView {
         val view = layoutInflater.inflate(
             R.layout.layout_order_item,
             frameContainer,
             false
-        ) as CollapsableView
+        ) as ElasticView
         view.id = View.generateViewId()
         return view
     }
 
-    fun getView2(): CollapsableView {
+    fun getView2(): ElasticView {
         val view = layoutInflater.inflate(
             R.layout.layout_order_item,
             stackContainer,
             false
-        ) as CollapsableView
+        ) as ElasticView
         view.id = View.generateViewId()
         return view
     }

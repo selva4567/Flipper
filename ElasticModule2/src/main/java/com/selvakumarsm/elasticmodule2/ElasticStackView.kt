@@ -8,7 +8,7 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.constraintlayout.widget.ConstraintSet
 import android.transition.TransitionManager
 
-class FlexibleStackView : FlexibleView {
+class ElasticStackView : ElasticViewOrchestrator {
     companion object {
         private const val TAG = "FlexibleStackView"
     }

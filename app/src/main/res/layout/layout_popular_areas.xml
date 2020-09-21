@@ -12,10 +12,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.selvakumarsm.elasticmodule2.VerticalStackView
+        <com.selvakumarsm.elasticmodule2.ElasticVerticalView
                     android:id="@+id/container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></com.selvakumarsm.elasticmodule2.VerticalStackView>
+                    android:layout_height="wrap_content"></com.selvakumarsm.elasticmodule2.ElasticVerticalView>
 <!--        <com.selvakumarsm.flipper.flexyview.FlexibleStackView-->
 <!--            android:id="@+id/container"-->
 <!--            android:layout_width="match_parent"-->

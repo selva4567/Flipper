@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CollapsableView">
+    <declare-styleable name="ElasticView">
         <attr name="collapsedSceneId" format="reference"/>
         <attr name="expandedSceneId" format="reference"/>
     </declare-styleable>

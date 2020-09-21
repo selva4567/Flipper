@@ -5,7 +5,11 @@ import android.util.AttributeSet
 import android.util.Log
 import androidx.constraintlayout.motion.widget.MotionLayout
 
-class CollapsableView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class ElasticView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) :
     MotionLayout(context, attrs, defStyleAttr) {
 
     companion object {
@@ -24,9 +28,9 @@ class CollapsableView @JvmOverloads constructor(context: Context, attrs: Attribu
     private val expandedSceneId: Int
 
     init {
-        val arr = context.obtainStyledAttributes(attrs, R.styleable.CollapsableView, 0, 0)
-        collapsedSceneId = arr.getResourceId(R.styleable.CollapsableView_collapsedSceneId, -1)
-        expandedSceneId = arr.getResourceId(R.styleable.CollapsableView_expandedSceneId, -1)
+        val arr = context.obtainStyledAttributes(attrs, R.styleable.ElasticView, 0, 0)
+        collapsedSceneId = arr.getResourceId(R.styleable.ElasticView_collapsedSceneId, -1)
+        expandedSceneId = arr.getResourceId(R.styleable.ElasticView_expandedSceneId, -1)
         arr.recycle()
     }
 

@@ -11,7 +11,7 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintSet
 
-class VerticalStackView : FlexibleView {
+class ElasticVerticalView : ElasticViewOrchestrator {
 
     companion object {
         private const val TAG = "VerticalStackView"

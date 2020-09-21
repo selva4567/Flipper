@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.MotionLayout
 
-abstract class FlexibleView : MotionLayout {
+abstract class ElasticViewOrchestrator : MotionLayout {
 
     companion object {
         private const val TAG = "FlexibleView"
@@ -48,7 +48,7 @@ abstract class FlexibleView : MotionLayout {
     }
 
     override fun addView(child: View?) {
-        if (child == null || child !is CollapsableView)
+        if (child == null || child !is ElasticView)
             throw IllegalArgumentException("View to be added must be a CollapsableView")
 
         Log.d(TAG, "addView: ${child.id}")
@@ -65,11 +65,11 @@ abstract class FlexibleView : MotionLayout {
             }
 
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-                val child = p0 as CollapsableView
+                val child = p0 as ElasticView
                 Log.d(TAG, "onTransitionCompleted: ${child.id} $p1 ${child.state}")
                 when (child.state) {
-                    CollapsableView.State.EXPANDED -> viewStateChangeListener?.onExpanded(p0!!)
-                    CollapsableView.State.COLLAPSED -> viewStateChangeListener?.onCollapsed(p0!!)
+                    ElasticView.State.EXPANDED -> viewStateChangeListener?.onExpanded(p0!!)
+                    ElasticView.State.COLLAPSED -> viewStateChangeListener?.onCollapsed(p0!!)
                     else -> Log.w(
                         TAG,
                         "onTransitionCompleted: Unknown transaction state change for view ${p0?.id}, transaction state $p1"
@@ -91,28 +91,28 @@ abstract class FlexibleView : MotionLayout {
 
     protected abstract fun applyConstraint(child: View)
 
-    fun expandView(view: CollapsableView) = view.expand()
+    fun expandView(view: ElasticView) = view.expand()
 
-    fun collapseView(view: CollapsableView) = view.collapse()
+    fun collapseView(view: ElasticView) = view.collapse()
 
-    fun toggleViewState(view: CollapsableView) = view.toggle()
+    fun toggleViewState(view: ElasticView) = view.toggle()
 
     private fun expandOrCollapseViews(view: View) {
         when (layoutConfig.transitionState) {
             TransitionState.JUST_EXPAND -> {
-                expandView(view as CollapsableView)
+                expandView(view as ElasticView)
             }
             TransitionState.EXPAND_AND_COLLAPSE_CHILD_VIEWS -> {
                 collapseAllChildViews()
                 //TODO wait till all childs are collapsed and then expand this view. Use Transition Listeners attached in the child view.
-                expandView(view as CollapsableView)
+                expandView(view as ElasticView)
             }
         }
     }
 
     private fun collapseAllChildViews() {
         (0 until childCount - 1).forEach { index ->
-            collapseView(getChildAt(index) as CollapsableView)
+            collapseView(getChildAt(index) as ElasticView)
             Log.d(TAG, "collapseAllChildViews: Collapsed $index")
         }
     }

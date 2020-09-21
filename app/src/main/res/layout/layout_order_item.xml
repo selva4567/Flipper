@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.selvakumarsm.elasticmodule2.CollapsableView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.selvakumarsm.elasticmodule2.ElasticView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_root"
@@ -44,4 +44,4 @@
         android:textColor="@android:color/holo_green_dark" />
 
 
-</com.selvakumarsm.elasticmodule2.CollapsableView>
+</com.selvakumarsm.elasticmodule2.ElasticView>
