@@ -10,7 +10,7 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 abstract class ElasticViewOrchestrator : MotionLayout {
 
     companion object {
-        private const val TAG = "FlexibleView"
+        private const val TAG = "ElasticViewOrchestrator"
     }
 
     // Supported transitions when a new view is added to this layout.
@@ -53,9 +53,10 @@ abstract class ElasticViewOrchestrator : MotionLayout {
         if (child == null || child !is ElasticView)
             throw IllegalArgumentException("View to be added must be a CollapsableView")
 
+        child.id = View.generateViewId()
         Log.d(TAG, "addView: ${child.id}")
         // TODO - might want to get the params directly from child view
-        child.layoutParams = getChildLayoutParams()
+        child.layoutParams = child.layoutParams
         child.setOnClickListener { toggleViewState(child) }
         child.setTransitionListener(object : TransitionListener {
             override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {

@@ -2,27 +2,17 @@
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
-    <Transition
-        motion:constraintSetEnd="@+id/expanded"
-        motion:constraintSetStart="@id/collapsed"
-        motion:duration="1000">
-        <OnClick
-            motion:targetId="@id/ivPhoto"
-            motion:clickAction="toggle"/>
-        <KeyFrameSet></KeyFrameSet>
-    </Transition>
-
     <ConstraintSet android:id="@+id/expanded">
         <Constraint android:id="@+id/ivPhoto">
             <Layout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                motion:layout_constraintBottom_toTopOf="@+id/descriptionContainer"
+                motion:layout_constraintBottom_toTopOf="@id/tvDescription"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintTop_toTopOf="parent" />
         </Constraint>
-        <Constraint android:id="@+id/descriptionContainer">
+        <Constraint android:id="@+id/tvTitle">
             <Layout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -30,24 +20,32 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:orientation="vertical"
-                motion:layout_constraintBottom_toBottomOf="parent"
-                motion:layout_constraintEnd_toEndOf="parent"
-                motion:layout_constraintStart_toStartOf="parent" />
-        </Constraint>
-        <Constraint android:id="@+id/titleContainer">
-            <Layout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="vertical"
-                motion:layout_constraintBottom_toBottomOf="@+id/ivPhoto"
+                motion:layout_constraintBottom_toBottomOf="@id/ivPhoto"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintHorizontal_bias="0.497"
                 motion:layout_constraintStart_toStartOf="parent" />
+            <CustomAttribute
+                motion:attributeName="textColor"
+                motion:customColorValue="@android:color/white" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_editor_absoluteX="10dp">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toBottomOf="@id/ivPhoto" />
+            <PropertySet android:visibility="visible" />
         </Constraint>
     </ConstraintSet>
 
@@ -55,17 +53,12 @@
         <Constraint android:id="@+id/ivPhoto">
             <Layout
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                motion:layout_constraintDimensionRatio="16:9"
+                android:layout_height="200dp"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintTop_toTopOf="parent" />
         </Constraint>
-        <Constraint android:id="@+id/descriptionContainer">
-           <PropertySet
-               android:visibility="gone"/>
-        </Constraint>
-        <Constraint android:id="@+id/titleContainer">
+        <Constraint android:id="@+id/tvTitle">
             <Layout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -74,10 +67,16 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical"
-                motion:layout_constraintBottom_toBottomOf="@+id/ivPhoto"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintHorizontal_bias="0.497"
-                motion:layout_constraintStart_toStartOf="parent" />
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toBottomOf="@id/ivPhoto" />
+            <CustomAttribute
+                motion:attributeName="textColor"
+                motion:customColorValue="@android:color/black" />
+        </Constraint>
+        <Constraint android:id="@+id/tvDescription">
+            <PropertySet android:visibility="gone" />
         </Constraint>
     </ConstraintSet>
 </MotionScene>

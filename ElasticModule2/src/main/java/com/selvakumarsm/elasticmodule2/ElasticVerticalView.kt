@@ -37,8 +37,8 @@ class ElasticVerticalView : ElasticViewOrchestrator {
 
     // TODO - Is it really needed now???
     override fun getChildLayoutParams(): ViewGroup.LayoutParams =
-        LayoutParams(MATCH_PARENT, WRAP_CONTENT).also {
-            it.topMargin = fromDp(context, layoutConfig.viewGapInDp)
+        LayoutParams(MATCH_PARENT, MATCH_PARENT).also {
+            it.topMargin = fromDp(context, 0)
         }
 
     override fun applyConstraint(child: View) {
