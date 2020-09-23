@@ -26,7 +26,6 @@ abstract class ElasticViewOrchestrator : MotionLayout {
 
     class LayoutConfig(
         val viewGapInDp: Int = 20,
-        val expandToFullScreen: Boolean = false,
         val transitionState: TransitionState = TransitionState.JUST_COLLAPSE
     )
 
@@ -100,8 +99,8 @@ abstract class ElasticViewOrchestrator : MotionLayout {
 
     protected abstract fun applyConstraint(child: View)
 
-    private fun expandView(view: ElasticView) {
-        if (layoutConfig.expandToFullScreen) {
+    private fun expandView(view: ElasticView, expandToParent: Boolean) {
+        if (expandToParent) {
             Log.d(TAG, "expandView: To full screen")
             view.layoutParams = LayoutParams(MATCH_PARENT, MATCH_PARENT)
             constrainToFullScreen(view)
@@ -119,7 +118,7 @@ abstract class ElasticViewOrchestrator : MotionLayout {
         if (view.state == ElasticView.State.EXPANDED)
             collapseView(view)
         else
-            expandView(view)
+            expandView(view, layoutConfig.transitionState == TransitionState.FULL_EXPAND_AND_COLLAPSE_CHILD_VIEWS)
     }
 
     private fun expandOrCollapseViews(view: ElasticView) {
@@ -130,7 +129,7 @@ abstract class ElasticViewOrchestrator : MotionLayout {
             TransitionState.FULL_EXPAND_AND_COLLAPSE_CHILD_VIEWS -> {
                 collapseAllChildViews()
                 //TODO wait till all childs are collapsed and then expand this view. Use Transition Listeners attached in the child view.
-                expandView(view)
+                expandView(view, true)
             }
             TransitionState.JUST_COLLAPSE -> {
                 view.collapse()

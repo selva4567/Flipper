@@ -62,8 +62,7 @@ class AttractionsActivity : AppCompatActivity() {
     private fun initViews() {
         elasticContainer = findViewById(R.id.elasticContainer)
         elasticContainer.layoutConfig = ElasticViewOrchestrator.LayoutConfig(
-            expandToFullScreen = false,
-            transitionState = ElasticViewOrchestrator.TransitionState.JUST_EXPAND
+            transitionState = ElasticViewOrchestrator.TransitionState.JUST_COLLAPSE
         )
         fab = findViewById(R.id.fab)
     }

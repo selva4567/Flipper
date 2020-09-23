@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.selvakumarsm.elasticmodule2.ElasticView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:collapsedSceneId="@+id/collapsed"
-    app:expandedSceneId="@+id/expanded"
-    android:background="@color/colorPrimary"
-    android:clipChildren="true"
-    app:layoutDescription="@xml/layout_attractions_scene">
+    android:layout_height="wrap_content"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="15dp"
+    android:layout_margin="10dp">
 
-    <ImageView
-        android:id="@+id/ivPhoto"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/n3" />
-
-    <TextView
-        android:id="@+id/tvTitle"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Wood fuel 3"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Firewood is any wooden material that is gathered and used for fuel. Generally, firewood is not highly processed and is in some sort of recognizable log or branch form, compared to other forms of wood fuel like pellets or chips. Firewood can be seasoned (dry) or unseasoned (fresh/wet)."
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/bannerImage"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/n3"
+            android:visibility="visible"
+            app:layout_constraintDimensionRatio=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</com.selvakumarsm.elasticmodule2.ElasticView>
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lord of Rings"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bannerImage" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
