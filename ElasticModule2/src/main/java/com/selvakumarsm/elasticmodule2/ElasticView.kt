@@ -56,7 +56,7 @@ class ElasticView @JvmOverloads constructor(
         Log.d(TAG, "collapse: $id to $collapsedSceneId")
         setTransition(expandedSceneId, collapsedSceneId)
         setTransitionDuration(TRANSITION_DURATION)
-        transitionToStart()
+        transitionToEnd()
         state = State.COLLAPSED
     }
 
