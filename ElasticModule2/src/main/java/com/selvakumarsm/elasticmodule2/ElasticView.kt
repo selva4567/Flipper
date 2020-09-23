@@ -33,11 +33,6 @@ class ElasticView @JvmOverloads constructor(
         arr.recycle()
     }
 
-    override fun onFinishInflate() {
-        super.onFinishInflate()
-
-    }
-
     internal fun expand() {
         constraintSetIds.forEach {
             Log.d(TAG, "expand: Constraint Id $it")

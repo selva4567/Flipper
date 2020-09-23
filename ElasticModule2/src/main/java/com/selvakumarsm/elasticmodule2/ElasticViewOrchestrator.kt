@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintSet
 
@@ -36,7 +35,6 @@ abstract class ElasticViewOrchestrator : MotionLayout {
         fun onStateTransitionInProgress(view: View)
         fun onViewAdded(view: View)
         fun onViewRemoved(view: View)
-        // TODO - Add callbacks for view removed/added
     }
 
     var layoutConfig = LayoutConfig()
@@ -61,7 +59,6 @@ abstract class ElasticViewOrchestrator : MotionLayout {
 
         child.id = View.generateViewId()
         Log.d(TAG, "addView: ${child.id}")
-        // TODO - might want to get the params directly from child view
         child.layoutParams = getChildLayoutParams()
         child.setOnClickListener { toggleViewState(child) }
         child.setTransitionListener(object : TransitionListener {
@@ -179,8 +176,31 @@ abstract class ElasticViewOrchestrator : MotionLayout {
         constraintSet.applyTo(this)
     }
 
-    private fun constrainToOriginalPosition(child: MotionLayout) {
-        applyConstraint(child)
+    private fun constrainToOriginalPosition(child: ElasticView) {
+        TransitionManager.beginDelayedTransition(this)
+        val childIndex = indexOfChild(child)
+        val childBefore = if (childIndex == 0) null else getChildAt(childIndex - 1)
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(this)
+        constraintSet.connect(
+            child.id,
+            ConstraintSet.TOP,
+            childBefore?.id ?: ConstraintSet.PARENT_ID,
+            if (childBefore == null) ConstraintSet.TOP else ConstraintSet.BOTTOM
+        )
+        constraintSet.connect(
+            child.id,
+            ConstraintSet.START,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.START
+        )
+        constraintSet.connect(
+            child.id,
+            ConstraintSet.END,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.END
+        )
+        constraintSet.applyTo(this)
     }
 
     /**
