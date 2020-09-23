@@ -15,13 +15,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/n1" />
+        android:src="@drawable/n2" />
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Wood fuel"
+        android:text="Wood fuel 2"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold" />

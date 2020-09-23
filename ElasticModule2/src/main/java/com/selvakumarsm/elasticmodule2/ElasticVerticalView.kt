@@ -35,10 +35,11 @@ class ElasticVerticalView : ElasticViewOrchestrator {
         viewStateChangeListener?.onViewRemoved(view)
     }
 
-    // TODO - Is it really needed now???
     override fun getChildLayoutParams(): ViewGroup.LayoutParams =
-        LayoutParams(MATCH_PARENT, MATCH_PARENT).also {
-            it.topMargin = fromDp(context, 0)
+            LayoutParams(MATCH_PARENT, WRAP_CONTENT).also {
+            it.topMargin = fromDp(context, 20)
+            it.leftMargin = fromDp(context, 20)
+            it.rightMargin = fromDp(context, 20)
         }
 
     override fun applyConstraint(child: View) {

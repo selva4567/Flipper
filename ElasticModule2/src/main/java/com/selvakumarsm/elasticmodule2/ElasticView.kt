@@ -22,7 +22,6 @@ class ElasticView @JvmOverloads constructor(
     }
 
     var state: State = State.EXPANDED
-        private set
     lateinit var viewTag: String
     private val collapsedSceneId: Int
     private val expandedSceneId: Int
@@ -32,6 +31,11 @@ class ElasticView @JvmOverloads constructor(
         collapsedSceneId = arr.getResourceId(R.styleable.ElasticView_collapsedSceneId, -1)
         expandedSceneId = arr.getResourceId(R.styleable.ElasticView_expandedSceneId, -1)
         arr.recycle()
+    }
+
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+
     }
 
     internal fun expand() {
@@ -47,7 +51,7 @@ class ElasticView @JvmOverloads constructor(
 
     internal fun collapse() {
         constraintSetIds.forEach {
-            Log.d(TAG, "expand: Constraint Id $it")
+            Log.d(TAG, "collapse: Constraint Id $it")
         }
         Log.d(TAG, "collapse: $id to $collapsedSceneId")
         setTransition(expandedSceneId, collapsedSceneId)
