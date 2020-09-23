@@ -102,27 +102,27 @@ abstract class ElasticViewOrchestrator : MotionLayout {
     protected abstract fun applyConstraint(child: View)
 
     fun expandView(view: ElasticView, toFullScreen: Boolean) {
-//        if(toFullScreen) {
-//            Log.d(TAG, "expandView: To full screen")
-//            view.layoutParams = LayoutParams(MATCH_PARENT, fromDp(context, 500))
-//            contrainToFullScreen(view)
-//            view.state = ElasticView.State.EXPANDED
-//        }
+        if(toFullScreen) {
+            Log.d(TAG, "expandView: To full screen")
+            view.layoutParams = LayoutParams(MATCH_PARENT, MATCH_PARENT)
+            contrainToFullScreen(view)
+            view.state = ElasticView.State.EXPANDED
+        }
         view.expand()
     }
 
     fun collapseView(view: ElasticView) {
-//        view.layoutParams = getChildLayoutParams()
-//        constrainToOriginalPosition(view)
+        view.layoutParams = getChildLayoutParams()
+        constrainToOriginalPosition(view)
+        view.state = ElasticView.State.COLLAPSED
         view.collapse()
     }
 
     fun toggleViewState(view: ElasticView) {
-//        if (view.state == ElasticView.State.EXPANDED)
-//            collapseView(view)
-//        else
-//            expandView(view, layoutConfig.expandToFullScreen)
-        view.toggle()
+        if (view.state == ElasticView.State.EXPANDED)
+            collapseView(view)
+        else
+            expandView(view, layoutConfig.expandToFullScreen)
     }
 
     private fun expandOrCollapseViews(view: View) {
