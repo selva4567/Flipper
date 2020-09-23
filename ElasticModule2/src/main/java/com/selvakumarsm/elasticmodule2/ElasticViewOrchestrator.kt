@@ -18,7 +18,8 @@ abstract class ElasticViewOrchestrator : MotionLayout {
 
     // Supported transitions when a new view is added to this layout.
     enum class TransitionState {
-        EXPAND_AND_COLLAPSE_CHILD_VIEWS, // Adds the new view in expanded state and collapses rest of the views
+        FULL_EXPAND_AND_COLLAPSE_CHILD_VIEWS, // Adds the new view to expand to cover full screen and collapses rest of the views
+        EXPAND_AND_COLLAPSE_CHILD_VIEWS, // Adds the new view in expanded mode to fit its contents and collapses rest of the views
         JUST_EXPAND, // Adds the new view in expanded state and does not change the state of other views
         JUST_COLLAPSE // Adds the new view in expanded state and does not change the state of other views
     }
@@ -26,7 +27,7 @@ abstract class ElasticViewOrchestrator : MotionLayout {
     class LayoutConfig(
         val viewGapInDp: Int = 20,
         val expandToFullScreen: Boolean = false,
-        val transitionState: TransitionState = TransitionState.EXPAND_AND_COLLAPSE_CHILD_VIEWS
+        val transitionState: TransitionState = TransitionState.JUST_COLLAPSE
     )
 
     interface ViewStateChangeListener {
@@ -94,58 +95,57 @@ abstract class ElasticViewOrchestrator : MotionLayout {
         viewStateChangeListener?.onViewAdded(child)
     }
 
+    //TODO - make this view specific. Let each child decide their layout params.
     protected abstract fun getChildLayoutParams(): ViewGroup.LayoutParams
 
     protected abstract fun applyConstraint(child: View)
 
-    fun expandView(view: ElasticView, toFullScreen: Boolean) {
-        if(toFullScreen) {
+    private fun expandView(view: ElasticView) {
+        if (layoutConfig.expandToFullScreen) {
             Log.d(TAG, "expandView: To full screen")
             view.layoutParams = LayoutParams(MATCH_PARENT, MATCH_PARENT)
-            contrainToFullScreen(view)
-            view.state = ElasticView.State.EXPANDED
+            constrainToFullScreen(view)
         }
         view.expand()
     }
 
-    fun collapseView(view: ElasticView) {
+    private fun collapseView(view: ElasticView) {
         view.layoutParams = getChildLayoutParams()
         constrainToOriginalPosition(view)
-        view.state = ElasticView.State.COLLAPSED
         view.collapse()
     }
 
-    fun toggleViewState(view: ElasticView) {
+    private fun toggleViewState(view: ElasticView) {
         if (view.state == ElasticView.State.EXPANDED)
             collapseView(view)
         else
-            expandView(view, layoutConfig.expandToFullScreen)
+            expandView(view)
     }
 
-    private fun expandOrCollapseViews(view: View) {
+    private fun expandOrCollapseViews(view: ElasticView) {
         when (layoutConfig.transitionState) {
             TransitionState.JUST_EXPAND -> {
-                expandView(view as ElasticView, layoutConfig.expandToFullScreen)
+                view.expand()
             }
-            TransitionState.EXPAND_AND_COLLAPSE_CHILD_VIEWS -> {
+            TransitionState.FULL_EXPAND_AND_COLLAPSE_CHILD_VIEWS -> {
                 collapseAllChildViews()
                 //TODO wait till all childs are collapsed and then expand this view. Use Transition Listeners attached in the child view.
-                expandView(view as ElasticView, layoutConfig.expandToFullScreen)
+                expandView(view)
             }
             TransitionState.JUST_COLLAPSE -> {
-                collapseView(view as ElasticView)
+                view.collapse()
             }
         }
     }
 
     private fun collapseAllChildViews() {
         (0 until childCount - 1).forEach { index ->
-            collapseView(getChildAt(index) as ElasticView)
+            (getChildAt(index) as ElasticView).collapse()
             Log.d(TAG, "collapseAllChildViews: Collapsed $index")
         }
     }
 
-    private fun contrainToFullScreen(child: MotionLayout) {
+    private fun constrainToFullScreen(child: MotionLayout) {
         TransitionManager.beginDelayedTransition(this)
         val constraintSet = ConstraintSet()
         constraintSet.clone(this)

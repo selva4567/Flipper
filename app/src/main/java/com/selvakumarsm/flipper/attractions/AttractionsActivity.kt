@@ -1,22 +1,8 @@
 package com.selvakumarsm.flipper.attractions
 
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
-import android.view.Gravity
-import android.view.View
-import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.constraintlayout.motion.widget.MotionScene
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.content.ContextCompat
-import androidx.transition.TransitionManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.selvakumarsm.elasticmodule2.ElasticVerticalView
 import com.selvakumarsm.elasticmodule2.ElasticView
@@ -34,6 +20,8 @@ class AttractionsActivity : AppCompatActivity() {
     private lateinit var view1: ElasticView
     private lateinit var view2: ElasticView
 
+    var index = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_attractions)
@@ -46,15 +34,37 @@ class AttractionsActivity : AppCompatActivity() {
     }
 
     private fun addViewToContainer() {
-        view1 = layoutInflater.inflate(R.layout.layout_attraction_item, elasticContainer, false) as ElasticView
-        elasticContainer.addView(view1)
-        view2 = layoutInflater.inflate(R.layout.layout_attraction_item_2, elasticContainer, false) as ElasticView
-        elasticContainer.addView(view2)
+        if (index == 0) {
+            view1 = layoutInflater.inflate(
+                R.layout.layout_attraction_item,
+                elasticContainer,
+                false
+            ) as ElasticView
+            elasticContainer.addView(view1.apply {
+                collapseSceneId = R.id.collapsed
+                expandSceneId = R.id.expanded
+            })
+        } else if (index == 1) {
+            view2 = layoutInflater.inflate(
+                R.layout.layout_attraction_item_2,
+                elasticContainer,
+                false
+            ) as ElasticView
+            elasticContainer.addView(view2.apply {
+                collapseSceneId = R.id.collapsed
+                expandSceneId = R.id.expanded
+            })
+        }
+        index++
+
     }
 
     private fun initViews() {
         elasticContainer = findViewById(R.id.elasticContainer)
-        elasticContainer.layoutConfig = ElasticViewOrchestrator.LayoutConfig(expandToFullScreen = true, transitionState = ElasticViewOrchestrator.TransitionState.JUST_COLLAPSE)
+        elasticContainer.layoutConfig = ElasticViewOrchestrator.LayoutConfig(
+            expandToFullScreen = false,
+            transitionState = ElasticViewOrchestrator.TransitionState.JUST_EXPAND
+        )
         fab = findViewById(R.id.fab)
     }
 

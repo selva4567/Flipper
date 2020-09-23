@@ -13,8 +13,7 @@ class ElasticView @JvmOverloads constructor(
     MotionLayout(context, attrs, defStyleAttr) {
 
     companion object {
-        private const val TAG = "CollapsableView"
-        const val TRANSITION_DURATION = 2000
+        private const val TAG = "ElasticView"
     }
 
     enum class State {
@@ -23,24 +22,31 @@ class ElasticView @JvmOverloads constructor(
 
     var state: State = State.EXPANDED
     lateinit var viewTag: String
+    var expandSceneId: Int = -1
+    var collapseSceneId: Int = -1
 
     fun expand() {
+        if (expandSceneId == -1)
+            throw IllegalStateException("Invalid expand scene id $expandSceneId")
         Log.d(TAG, "expand: $id")
-        transitionToEnd()
+        transitionToState(expandSceneId)
         state = State.EXPANDED
     }
 
     fun collapse() {
+        if (collapseSceneId == -1)
+            throw IllegalStateException("Invalid collapse scene id $collapseSceneId")
         Log.d(TAG, "collapse: $id ")
-        transitionToStart()
+        transitionToState(collapseSceneId)
         state = State.COLLAPSED
     }
 
     fun toggle() {
-        when (state) {
-            State.EXPANDED -> collapse()
+        when(state) {
             State.COLLAPSED -> expand()
-            else -> throw IllegalArgumentException("Unsupported view state. Only State.EXPANDED, State.COLLAPSED are supported right now.")
+            State.EXPANDED -> collapse()
+            State.IN_TRANSITION -> Log.d(TAG, "toogle: In transition. Cannot toggle.")
+            else -> Log.d(TAG, "toogle: Cannot toggle. Unknown state.")
         }
     }
 }

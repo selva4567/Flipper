@@ -1,7 +1,6 @@
 package com.selvakumarsm.flipper
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
@@ -69,7 +68,7 @@ class OrdersActivity : AppCompatActivity(), ElasticViewOrchestrator.ViewStateCha
     private fun setupElasticContainer() {
         elasticContainer = findViewById(R.id.container)
         elasticContainer.layoutConfig =
-            ElasticViewOrchestrator.LayoutConfig(transitionState = ElasticViewOrchestrator.TransitionState.EXPAND_AND_COLLAPSE_CHILD_VIEWS)
+            ElasticViewOrchestrator.LayoutConfig(transitionState = ElasticViewOrchestrator.TransitionState.FULL_EXPAND_AND_COLLAPSE_CHILD_VIEWS)
         elasticContainer.viewStateChangeListener = this
     }
 
