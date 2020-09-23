@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.selvakumarsm.elasticmodule2.ElasticView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/elasticRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:collapsedSceneId="@+id/collapsed"
-    app:expandedSceneId="@+id/expanded"
     android:background="@color/colorPrimary"
     android:clipChildren="true"
     app:layoutDescription="@xml/layout_attractions_scene">
