@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class HangoutsCacheImpl @Inject constructor(): HangoutsCache {
 
-    override suspend fun getCachedPopularHangouts(): List<Place> {
+    override suspend fun getCachedTrendingHangouts(): List<Place> {
         delay(3000)
         return listOf(
             Place("Golconda Fort").apply {
@@ -41,8 +41,8 @@ class HangoutsCacheImpl @Inject constructor(): HangoutsCache {
         )
     }
 
-    override suspend fun getCachedTrendingHangouts(): List<Place> {
-        delay(5000)
+    override suspend fun getCachedPopularHangouts(): List<Place> {
+        delay(3000)
         return listOf(
             Place("Abids").apply {
                 about =
@@ -53,6 +53,7 @@ class HangoutsCacheImpl @Inject constructor(): HangoutsCache {
                 state = "Telangana"
                 pincode = "500008"
                 drawableId = R.drawable.abids
+                distance = "0.8 mi"
             },
             Place("Kachiguda").apply {
                 about =
@@ -63,6 +64,7 @@ class HangoutsCacheImpl @Inject constructor(): HangoutsCache {
                 state = "Telangana"
                 pincode = "5000032"
                 drawableId = R.drawable.kachiguda
+                distance = "4.1 mi"
             },
             Place("Kukatpally").apply {
                 about =
@@ -73,6 +75,7 @@ class HangoutsCacheImpl @Inject constructor(): HangoutsCache {
                 state = "Telangana"
                 pincode = "500008"
                 drawableId = R.drawable.kukatpally
+                distance = "1.3 mi"
             },
             Place("HITEC City").apply {
                 about = "Tech companies & Shiparamam village"
@@ -82,6 +85,7 @@ class HangoutsCacheImpl @Inject constructor(): HangoutsCache {
                 state = "Telangana"
                 pincode = "500008"
                 drawableId = R.drawable.hitec
+                distance = "7.7 mi"
             }
         )
     }

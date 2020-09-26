@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.selvakumarsm.elasticmodule2.ElasticView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:layoutDescription="@xml/layout_explore_item_scene"
+    app:collapsedSceneId="@+id/collapsed"
+    app:expandedSceneId="@+id/expanded">
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Island Bali"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvMiles"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="8.5 mi" />
+
+    <TextView
+        android:id="@+id/tvAbout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:lineHeight="20sp"
+        android:text="Historic Commercial hub with markets, plus cricket and soccer at the Lal Bahadur Shastri Stadium" />
+
+    <ImageView
+        android:id="@+id/ivPlace"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/n3" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_direction"
+        android:scaleType="center"
+        tools:layout_editor_absoluteX="336dp"
+        tools:layout_editor_absoluteY="70dp" />
+</com.selvakumarsm.elasticmodule2.ElasticView>

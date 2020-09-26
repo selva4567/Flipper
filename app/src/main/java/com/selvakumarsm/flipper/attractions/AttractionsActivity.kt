@@ -34,28 +34,28 @@ class AttractionsActivity : AppCompatActivity() {
     }
 
     private fun addViewToContainer() {
-        if (index == 0) {
-            view1 = layoutInflater.inflate(
-                R.layout.layout_attraction_item,
-                elasticContainer,
-                false
-            ) as ElasticView
-            elasticContainer.addView(view1.apply {
-                collapseSceneId = R.id.collapsed
-                expandSceneId = R.id.expanded
-            })
-        } else if (index == 1) {
-            view2 = layoutInflater.inflate(
-                R.layout.layout_attraction_item_2,
-                elasticContainer,
-                false
-            ) as ElasticView
-            elasticContainer.addView(view2.apply {
-                collapseSceneId = R.id.collapsed
-                expandSceneId = R.id.expanded
-            })
-        }
-        index++
+//        if (index == 0) {
+//            view1 = layoutInflater.inflate(
+//                R.layout.layout_attraction_item,
+//                elasticContainer,
+//                false
+//            ) as ElasticView
+//            elasticContainer.addView(view1.apply {
+//                collapseSceneId = R.id.collapsed
+//                expandSceneId = R.id.expanded
+//            })
+//        } else if (index == 1) {
+//            view2 = layoutInflater.inflate(
+//                R.layout.layout_attraction_item_2,
+//                elasticContainer,
+//                false
+//            ) as ElasticView
+//            elasticContainer.addView(view2.apply {
+//                collapseSceneId = R.id.collapsed
+//                expandSceneId = R.id.expanded
+//            })
+//        }
+//        index++
 
     }
 

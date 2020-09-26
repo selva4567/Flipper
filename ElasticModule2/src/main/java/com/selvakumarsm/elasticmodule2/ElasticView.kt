@@ -12,18 +12,54 @@ class ElasticView @JvmOverloads constructor(
 ) :
     MotionLayout(context, attrs, defStyleAttr) {
 
-    companion object {
-        private const val TAG = "ElasticView"
-    }
-
-    enum class State {
-        EXPANDED, COLLAPSED, IN_TRANSITION
-    }
-
-    var state: State = State.EXPANDED
+    var state: State
+    var callback: StateChangeListener? = null
     lateinit var viewTag: String
-    var expandSceneId: Int = -1
-    var collapseSceneId: Int = -1
+    private val expandSceneId: Int
+    private val collapseSceneId: Int
+
+    init {
+        val arr = context.obtainStyledAttributes(attrs, R.styleable.ElasticView, 0, 0)
+        collapseSceneId = arr.getResourceId(R.styleable.ElasticView_collapsedSceneId, -1)
+        expandSceneId = arr.getResourceId(R.styleable.ElasticView_expandedSceneId, -1)
+        state = when (arr.getResourceId(R.styleable.ElasticView_initialState, 0)) {
+            0 -> State.COLLAPSED
+            1 -> State.EXPANDED
+            else -> {
+                Log.d(TAG, "Invalid initialstate for view: ")
+                State.COLLAPSED
+            }
+        }
+
+        setupTransition()
+        setupCallbacks()
+    }
+
+    private fun setupCallbacks() {
+        setOnClickListener {
+            toggle()
+        }
+        setTransitionListener(object : TransitionListener {
+            override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
+
+            }
+
+            override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {
+
+            }
+
+            override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
+                if (p1 == collapseSceneId)
+                    callback?.onCollapsed(p0 as ElasticView)
+                else if (p1 == expandSceneId)
+                    callback?.onExpanded(p0 as ElasticView)
+            }
+
+            override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
+
+            }
+        })
+    }
 
     fun expand() {
         if (expandSceneId == -1)
@@ -42,11 +78,31 @@ class ElasticView @JvmOverloads constructor(
     }
 
     fun toggle() {
-        when(state) {
+        when (state) {
             State.COLLAPSED -> expand()
             State.EXPANDED -> collapse()
             State.IN_TRANSITION -> Log.d(TAG, "toogle: In transition. Cannot toggle.")
-            else -> Log.d(TAG, "toogle: Cannot toggle. Unknown state.")
         }
+    }
+
+    private fun setupTransition() {
+        if (state == State.EXPANDED) {
+            setTransition(expandSceneId, collapseSceneId)
+        } else {
+            setTransition(collapseSceneId, expandSceneId)
+        }
+    }
+
+    companion object {
+        private const val TAG = "ElasticView"
+    }
+
+    enum class State {
+        COLLAPSED, EXPANDED, IN_TRANSITION
+    }
+
+    interface StateChangeListener {
+        fun onCollapsed(view: ElasticView)
+        fun onExpanded(view: ElasticView)
     }
 }

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition />
+
+    <ConstraintSet android:id="@+id/collapsed">
+        <Constraint android:id="@+id/ivPlace">
+            <Layout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvName">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintEnd_toStartOf="@id/ivPlace"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvAbout">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                motion:layout_constraintStart_toStartOf="@id/tvName"
+                motion:layout_constraintTop_toBottomOf="@id/tvName"
+                motion:layout_constraintEnd_toEndOf="@id/tvName"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvMiles">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                motion:layout_constraintStart_toStartOf="@id/tvName"
+                motion:layout_constraintTop_toBottomOf="@id/tvAbout"
+                motion:layout_constraintEnd_toEndOf="@id/tvName"/>
+        </Constraint>
+        <Constraint android:id="@+id/direction">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                motion:layout_constraintEnd_toEndOf="@id/ivPlace"
+                motion:layout_constraintTop_toBottomOf="@id/ivPlace"
+                motion:layout_constraintBottom_toBottomOf="@id/ivPlace"/>
+            <PropertySet
+                android:visibility="gone"/>
+        </Constraint>
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/expanded">
+        <Constraint android:id="@+id/ivPlace">
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="8dp"
+                motion:layout_constraintStart_toStartOf="@+id/tvName"
+                motion:layout_constraintEnd_toEndOf="@+id/tvName"
+                motion:layout_constraintTop_toBottomOf="@+id/tvName"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvName">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvAbout">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                motion:layout_constraintStart_toStartOf="@id/tvName"
+                motion:layout_constraintTop_toBottomOf="@id/direction"
+                motion:layout_constraintEnd_toEndOf="@id/tvName"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvMiles">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                motion:layout_constraintStart_toStartOf="@id/tvName"
+                motion:layout_constraintTop_toBottomOf="@id/tvAbout"
+                motion:layout_constraintEnd_toEndOf="@id/tvName"/>
+        </Constraint>
+        <Constraint android:id="@+id/direction">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                motion:layout_constraintEnd_toEndOf="@id/ivPlace"
+                motion:layout_constraintTop_toBottomOf="@id/ivPlace"
+                motion:layout_constraintBottom_toBottomOf="@id/ivPlace"/>
+            <PropertySet
+                android:visibility="visible"/>
+        </Constraint>
+    </ConstraintSet>
+</MotionScene>

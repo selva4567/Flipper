@@ -16,7 +16,7 @@ class HangoutsRepositoryImpl @Inject constructor(private val hangoutsCache: Hang
 
     override fun getTrendingNowHangouts(nearBy: Coordinates): Flow<HangoutsResult> = flow {
         emit(HangoutsResult.InProgress)
-        val cachedHangouts = hangoutsCache.getCachedPopularHangouts()
+        val cachedHangouts = hangoutsCache.getCachedTrendingHangouts()
         emit(HangoutsResult.Success(cachedHangouts))
     }
 

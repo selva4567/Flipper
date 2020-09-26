@@ -3,5 +3,9 @@
     <declare-styleable name="ElasticView">
         <attr name="collapsedSceneId" format="reference"/>
         <attr name="expandedSceneId" format="reference"/>
+        <attr name="initialState" format="enum">
+            <enum name="collapsed" value="0"/>
+            <enum name="expanded" value="1"/>
+        </attr>
     </declare-styleable>
 </resources>

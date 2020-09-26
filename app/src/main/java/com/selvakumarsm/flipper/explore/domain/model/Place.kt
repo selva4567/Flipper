@@ -1,6 +1,8 @@
 package com.selvakumarsm.flipper.explore.domain.model
 
-data class Place(var name: String) {
+import java.util.*
+
+data class Place(var name: String, val id: UUID = UUID.randomUUID()) {
     var drawableId: Int? = null // Drawable resource id for this place
     var about: String? = null
     var description: String? = null
