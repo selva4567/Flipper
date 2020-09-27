@@ -47,7 +47,6 @@ class ExploreActivity : AppCompatActivity() {
 
     private fun initFeaturedList() {
         lifecycleScope.launch {
-            delay(5000)
             viewBinding.elasticContainer.layoutManager = GridLayoutManager()
             val view = layoutInflater.inflate(R.layout.layout_featured_item, viewBinding.elasticContainer, false)
             viewBinding.elasticContainer.addView(view)

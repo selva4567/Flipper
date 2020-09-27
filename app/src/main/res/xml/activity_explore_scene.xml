@@ -7,14 +7,90 @@
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
         motion:duration="1000">
+        <OnSwipe
+            motion:touchAnchorId="@id/rvPopularPlaces"
+            motion:touchAnchorSide="top"
+            motion:dragDirection="dragUp"
+            />
        <KeyFrameSet>
+           <KeyPosition
+               motion:framePosition="50"
+               motion:motionTarget="@+id/rvPopularPlaces" />
        </KeyFrameSet>
     </Transition>
 
-    <ConstraintSet android:id="@+id/start"
-        motion:deriveConstraintsFrom="@+id/root">
+    <ConstraintSet android:id="@+id/start">
+        <Constraint android:id="@+id/tvScreenTitle">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Explore"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"/>
+        </Constraint>
+        <Constraint android:id="@+id/rvPopularPlaces">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="250dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toBottomOf="@+id/tvScreenTitle"
+                />
+        </Constraint>
+        <Constraint android:id="@+id/elasticContainer">
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toBottomOf="@+id/tvScreenTitle" />
+        </Constraint>
+        <Constraint android:id="@+id/progressBar">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent" />
+            <PropertySet
+                motion:visibilityMode="ignore"/>
+        </Constraint>
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/end">
+    <ConstraintSet android:id="@+id/end"
+        motion:deriveConstraintsFrom="@id/start">
+        <Constraint android:id="@+id/rvPopularPlaces">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toBottomOf="@+id/tvScreenTitle"
+                />
+        </Constraint>
+        <Constraint android:id="@+id/elasticContainer">
+            <PropertySet
+                android:visibility="gone"/>
+        </Constraint>
+        <Constraint android:id="@id/progressBar">
+            <PropertySet
+                motion:visibilityMode="ignore"/>
+        </Constraint>
     </ConstraintSet>
 </MotionScene>
