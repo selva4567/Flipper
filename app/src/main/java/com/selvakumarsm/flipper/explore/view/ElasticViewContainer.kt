@@ -1,20 +1,18 @@
 package com.selvakumarsm.flipper.explore.view
 
 import android.content.Context
-import android.transition.TransitionManager
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.motion.widget.MotionScene
 import androidx.constraintlayout.motion.widget.TransitionBuilder
 import androidx.constraintlayout.widget.ConstraintSet
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.channels.consumesAll
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.selvakumarsm.elasticmodule2.ElasticProperties
+import com.selvakumarsm.elasticmodule2.ElasticView
+import com.selvakumarsm.elasticmodule2.StateChangeListener
+import java.lang.IllegalArgumentException
 
 class ElasticViewContainer @JvmOverloads constructor(
     context: Context,
@@ -24,28 +22,45 @@ class ElasticViewContainer @JvmOverloads constructor(
     MotionLayout(context, attrs, defStyleAttr) {
 
     private var containerTransition: MotionScene.Transition? = null
+    var layoutManager: LayoutManager? = null
 
     init {
         createTransition()
     }
 
-    override fun onFinishInflate() {
-        Log.d(TAG, "onFinishInflate: ")
-        super.onFinishInflate()
+    override fun addView(view: View) {
+        if (view !is ElasticProperties)
+            throw IllegalArgumentException("Cannot add views which doesn't implement ElasticProperties")
+        view.id = View.generateViewId()
+        setupListeners(view)
+        super.addView(view, layoutManager?.getLayoutParams(context))
+        Log.d(TAG, "addMotionView: Total child count $childCount")
+        layoutManager?.applyConstraint(view, this, containerTransition!!)
     }
 
-    fun addMotionView(view: View) {
-        view.id = View.generateViewId()
-        val layoutParams = LayoutParams(MATCH_PARENT, fromDp(context, 200)).also {
-            it.topMargin = fromDp(context, 20)
-        }
+    private fun setupListeners(view: View) {
+        if (view !is ElasticProperties)
+            throw IllegalArgumentException("Cannot add views which doesn't implement ElasticProperties")
         view.setOnClickListener {
             Log.d(TAG, "addMotionView: VIew ${view.id} clicked")
             toggle(it)
+            view.toggle()
         }
-        addView(view, layoutParams)
-        Log.d(TAG, "addMotionView: Total child count $childCount")
-        applyConstraint(view)
+        view.setStateChangeListener(object : StateChangeListener {
+            override fun postCollapse(view: ElasticView) {
+                view.elevation = 0f
+            }
+
+            override fun postExpand(view: ElasticView) {
+            }
+
+            override fun preCollapse(view: ElasticView) {
+            }
+
+            override fun preExpand(view: ElasticView) {
+                view.elevation = 1f
+            }
+        })
     }
 
     private fun toggle(view: View) {
@@ -57,7 +72,7 @@ class ElasticViewContainer @JvmOverloads constructor(
                 getConstraintSet(containerTransition!!.endConstraintSetId).also {
                     it.clone(this)
                     it.constrainWidth(view.id, MATCH_PARENT)
-                    it.constrainHeight(view.id, WRAP_CONTENT)
+                    it.constrainHeight(view.id, MATCH_PARENT)
                     constrainToParent(view.id, it)
                 }
                 setTransition(
@@ -83,59 +98,24 @@ class ElasticViewContainer @JvmOverloads constructor(
             ConstraintSet.START,
             ConstraintSet.PARENT_ID,
             ConstraintSet.START,
-            fromDp(context, 20)
         )
         connect(
             id,
             ConstraintSet.TOP,
             ConstraintSet.PARENT_ID,
             ConstraintSet.TOP,
-            fromDp(context, 20)
         )
         connect(
             id,
             ConstraintSet.END,
             ConstraintSet.PARENT_ID,
             ConstraintSet.END,
-            fromDp(context, 20)
         )
         connect(
             id,
             ConstraintSet.BOTTOM,
             ConstraintSet.PARENT_ID,
             ConstraintSet.BOTTOM,
-            fromDp(context, 20)
-        )
-    }
-
-    private fun applyConstraint(child: View) {
-        TransitionManager.beginDelayedTransition(this)
-        val childBefore = if (childCount <= 1) null else getChildAt(childCount - 2)
-        Log.d(TAG, "applyConstraint: aligning ${child.id} vertically to ${childBefore?.id}")
-        val startScene = getConstraintSet(containerTransition!!.startConstraintSetId)
-        startScene.clone(this)
-        startScene.connect(
-            child.id,
-            ConstraintSet.TOP,
-            childBefore?.id ?: ConstraintSet.PARENT_ID,
-            if (childBefore == null) ConstraintSet.TOP else ConstraintSet.BOTTOM
-        )
-        startScene.connect(
-            child.id,
-            ConstraintSet.START,
-            ConstraintSet.PARENT_ID,
-            ConstraintSet.START
-        )
-        startScene.connect(
-            child.id,
-            ConstraintSet.END,
-            ConstraintSet.PARENT_ID,
-            ConstraintSet.END
-        )
-        startScene.applyTo(this)
-        setTransition(
-            containerTransition!!.startConstraintSetId,
-            containerTransition!!.endConstraintSetId
         )
     }
 
@@ -165,12 +145,6 @@ class ElasticViewContainer @JvmOverloads constructor(
         scene.setTransition(containerTransition)
         setScene(scene)
     }
-
-    private fun fromDp(context: Context, inDp: Int): Int {
-        val scale = context.resources.displayMetrics.density
-        return (inDp * scale).toInt()
-    }
-
 
     companion object {
         private val TAG = ElasticViewContainer::class.simpleName

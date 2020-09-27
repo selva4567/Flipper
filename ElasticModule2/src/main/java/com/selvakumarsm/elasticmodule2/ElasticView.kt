@@ -10,10 +10,10 @@ class ElasticView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) :
-    MotionLayout(context, attrs, defStyleAttr) {
+    MotionLayout(context, attrs, defStyleAttr), ElasticProperties {
 
     var state: State
-    var callback: StateChangeListener? = null
+    private var callback: StateChangeListener? = null
     lateinit var viewTag: String
     private val expandSceneId: Int
     private val collapseSceneId: Int
@@ -41,7 +41,6 @@ class ElasticView @JvmOverloads constructor(
         }
         setTransitionListener(object : TransitionListener {
             override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
-
             }
 
             override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {
@@ -50,9 +49,9 @@ class ElasticView @JvmOverloads constructor(
 
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
                 if (p1 == collapseSceneId)
-                    callback?.onCollapsed(p0 as ElasticView)
+                    callback?.postCollapse(p0 as ElasticView)
                 else if (p1 == expandSceneId)
-                    callback?.onExpanded(p0 as ElasticView)
+                    callback?.postExpand(p0 as ElasticView)
             }
 
             override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
@@ -61,23 +60,29 @@ class ElasticView @JvmOverloads constructor(
         })
     }
 
-    fun expand() {
+    override fun setStateChangeListener(stateChangeListener: StateChangeListener) {
+        callback = stateChangeListener
+    }
+
+    override fun expand() {
         if (expandSceneId == -1)
             throw IllegalStateException("Invalid expand scene id $expandSceneId")
         Log.d(TAG, "expand: $id")
+        callback?.preExpand(this)
         transitionToState(expandSceneId)
         state = State.EXPANDED
     }
 
-    fun collapse() {
+    override fun collapse() {
         if (collapseSceneId == -1)
             throw IllegalStateException("Invalid collapse scene id $collapseSceneId")
         Log.d(TAG, "collapse: $id ")
+        callback?.preCollapse(this)
         transitionToState(collapseSceneId)
         state = State.COLLAPSED
     }
 
-    fun toggle() {
+    override fun toggle() {
         when (state) {
             State.COLLAPSED -> expand()
             State.EXPANDED -> collapse()
@@ -99,10 +104,5 @@ class ElasticView @JvmOverloads constructor(
 
     enum class State {
         COLLAPSED, EXPANDED, IN_TRANSITION
-    }
-
-    interface StateChangeListener {
-        fun onCollapsed(view: ElasticView)
-        fun onExpanded(view: ElasticView)
     }
 }

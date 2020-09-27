@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.selvakumarsm.elasticmodule2.ElasticView
-import com.selvakumarsm.elasticmodule2.ElasticView.StateChangeListener
+import com.selvakumarsm.elasticmodule2.StateChangeListener
 import com.selvakumarsm.flipper.R
 import com.selvakumarsm.flipper.databinding.LayoutExploreItemBinding
 import com.selvakumarsm.flipper.explore.domain.model.Place
@@ -21,16 +21,23 @@ class PopularPlacesViewAdapter :
         fun bind(place: Place) {
             binding.tvName.text = place.name
             binding.tvMiles.text = place.distance
-            binding.ivPlace.setImageResource(place.drawableId?: R.drawable.kachiguda)
-            binding.root.callback = object : StateChangeListener {
-                override fun onCollapsed(view: ElasticView) {
+            binding.ivPlace.setImageResource(place.drawableId ?: R.drawable.kachiguda)
+            binding.root.setStateChangeListener(object : StateChangeListener {
+                override fun postCollapse(view: ElasticView) {
                     binding.tvAbout.text = place.about
                 }
 
-                override fun onExpanded(view: ElasticView) {
+                override fun postExpand(view: ElasticView) {
                     binding.tvAbout.text = place.description
                 }
-            }
+
+                override fun preCollapse(view: ElasticView) {
+
+                }
+
+                override fun preExpand(view: ElasticView) {
+                }
+            })
         }
     }
 
