@@ -6,11 +6,15 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.selvakumarsm.flipper.R
 import com.selvakumarsm.flipper.databinding.ActivityExploreBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ExploreActivity : AppCompatActivity() {
@@ -24,6 +28,7 @@ class ExploreActivity : AppCompatActivity() {
         viewBinding = ActivityExploreBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
         initPopularPlaceView()
+        initFeaturedList()
 
         viewModel.popularPlacesLiveData.observe(this) {
             Log.d(TAG, "onCreate: New value for popular places ${it?.size}")
@@ -38,6 +43,15 @@ class ExploreActivity : AppCompatActivity() {
                 hideProgressBar()
         }
 
+    }
+
+    private fun initFeaturedList() {
+        lifecycleScope.launch {
+            delay(5000)
+            viewBinding.elasticContainer.layoutManager = GridLayoutManager()
+            val view = layoutInflater.inflate(R.layout.layout_featured_item, viewBinding.elasticContainer, false)
+            viewBinding.elasticContainer.addView(view)
+        }
     }
 
     private fun initPopularPlaceView() {

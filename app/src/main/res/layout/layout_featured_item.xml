@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
+    android:clipChildren="false"
     app:layoutDescription="@xml/layout_featured_item_scene"
     app:collapsedSceneId="@+id/start"
     app:expandedSceneId="@+id/end">
