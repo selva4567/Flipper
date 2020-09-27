@@ -18,7 +18,7 @@ class TestActivity : AppCompatActivity() {
         elasticContainer = findViewById(R.id.elasticContainer)
         fab = findViewById(R.id.fab)
         fab.setOnClickListener {
-            val view = layoutInflater.inflate(R.layout.layout_test_item_2, elasticContainer, false)
+            val view = layoutInflater.inflate(R.layout.layout_featured_item, elasticContainer, false)
             elasticContainer.addMotionView(view)
         }
     }

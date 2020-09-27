@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.selvakumarsm.elasticmodule2.ElasticView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/layout_featured_item_scene"
+    app:collapsedSceneId="@+id/start"
+    app:expandedSceneId="@+id/end">
+
+    <ImageView
+        android:id="@+id/featuredImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/food_5" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif"
+        android:text="Top 7 Places to go for Breakfast Buffet"
+        android:textSize="14sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+    <TextView
+        android:id="@+id/tvPlaces"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="6 places"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvViews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="23K views"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/tvAbout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="7 Places to go for Breakfast Buffet in Hyderabad. Best breakfast buffet restaurants in Hyderabad offering Western breakfast, North Indian breakfast and South Indian breakfast."
+        android:textSize="14sp"
+        android:textAlignment="center"
+        android:lineHeight="20sp" />
+</com.selvakumarsm.elasticmodule2.ElasticView>

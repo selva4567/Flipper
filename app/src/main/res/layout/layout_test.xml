@@ -5,19 +5,15 @@
     android:layout_height="match_parent"
     app:layoutDescription="@xml/layout_test_scene">
 
-    <ScrollView
+
+    <com.selvakumarsm.flipper.explore.view.ElasticViewContainer
+        android:id="@+id/elasticContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/fab"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"> v
-
-        <com.selvakumarsm.flipper.explore.view.ElasticViewContainer
-            android:id="@+id/elasticContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></com.selvakumarsm.flipper.explore.view.ElasticViewContainer>
-    </ScrollView>
+        app:layout_constraintTop_toTopOf="parent"></com.selvakumarsm.flipper.explore.view.ElasticViewContainer>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

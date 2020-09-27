@@ -51,40 +51,15 @@ class ElasticViewContainer @JvmOverloads constructor(
     private fun toggle(view: View) {
         when (currentState) {
             containerTransition!!.startConstraintSetId -> {
-                val startScene = getConstraintSet(containerTransition!!.startConstraintSetId)
-                startScene.clone(this)
-                val endScene = getConstraintSet(containerTransition!!.endConstraintSetId)
-                endScene.clone(this)
-                endScene.constrainWidth(view.id, MATCH_PARENT)
-                endScene.constrainHeight(view.id, WRAP_CONTENT)
-                endScene.connect(
-                    view.id,
-                    ConstraintSet.START,
-                    ConstraintSet.PARENT_ID,
-                    ConstraintSet.START,
-                    fromDp(context, 20)
-                )
-                endScene.connect(
-                    view.id,
-                    ConstraintSet.TOP,
-                    ConstraintSet.PARENT_ID,
-                    ConstraintSet.TOP,
-                    fromDp(context, 20)
-                )
-                endScene.connect(
-                    view.id,
-                    ConstraintSet.END,
-                    ConstraintSet.PARENT_ID,
-                    ConstraintSet.END,
-                    fromDp(context, 20)
-                )
-                endScene.connect(
-                    view.id,
-                    ConstraintSet.BOTTOM,
-                    ConstraintSet.PARENT_ID,
-                    ConstraintSet.BOTTOM,
-                    fromDp(context, 20)
-                )
+                getConstraintSet(containerTransition!!.startConstraintSetId).also {
+                    it.clone(this)
+                }
+                getConstraintSet(containerTransition!!.endConstraintSetId).also {
+                    it.clone(this)
+                    it.constrainWidth(view.id, MATCH_PARENT)
+                    it.constrainHeight(view.id, WRAP_CONTENT)
+                    constrainToParent(view.id, it)
+                }
                 setTransition(
                     containerTransition!!.startConstraintSetId,
                     containerTransition!!.endConstraintSetId
@@ -92,7 +67,6 @@ class ElasticViewContainer @JvmOverloads constructor(
                 transitionToEnd()
             }
             containerTransition!!.endConstraintSetId -> {
-//                applyConstraint(view)
                 transitionToStart()
             }
             else -> {
@@ -101,6 +75,37 @@ class ElasticViewContainer @JvmOverloads constructor(
             }
         }
 
+    }
+
+    private fun constrainToParent(id: Int, scene: ConstraintSet) = scene.apply {
+        connect(
+            id,
+            ConstraintSet.START,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.START,
+            fromDp(context, 20)
+        )
+        connect(
+            id,
+            ConstraintSet.TOP,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.TOP,
+            fromDp(context, 20)
+        )
+        connect(
+            id,
+            ConstraintSet.END,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.END,
+            fromDp(context, 20)
+        )
+        connect(
+            id,
+            ConstraintSet.BOTTOM,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.BOTTOM,
+            fromDp(context, 20)
+        )
     }
 
     private fun applyConstraint(child: View) {

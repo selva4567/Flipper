@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition />
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint android:id="@+id/featuredImage">
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvTitle">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                motion:layout_constraintStart_toStartOf="@id/featuredImage"
+                motion:layout_constraintEnd_toEndOf="@id/featuredImage"
+                motion:layout_constraintTop_toBottomOf="@id/featuredImage"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvPlaces">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                motion:layout_constraintStart_toStartOf="@id/tvTitle"
+                motion:layout_constraintEnd_toStartOf="@+id/tvViews"
+                motion:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                motion:layout_constraintBottom_toBottomOf="@id/tvViews"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvViews">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                motion:layout_constraintEnd_toEndOf="@id/tvTitle"
+                motion:layout_constraintStart_toEndOf="@id/tvPlaces"
+                motion:layout_constraintTop_toBottomOf="@id/tvTitle"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvAbout">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                motion:layout_constraintStart_toStartOf="@id/featuredImage"
+                motion:layout_constraintEnd_toEndOf="@id/featuredImage"
+                motion:layout_constraintTop_toBottomOf="@id/tvViews"/>
+            <PropertySet
+                android:visibility="gone"/>
+        </Constraint>
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint android:id="@+id/featuredImage">
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvTitle">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                motion:layout_constraintStart_toStartOf="@id/featuredImage"
+                motion:layout_constraintEnd_toEndOf="@id/featuredImage"
+                motion:layout_constraintTop_toBottomOf="@id/featuredImage"/>
+            <Transform
+                android:scaleY="1.5"
+                android:scaleX="1.5"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvPlaces">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                motion:layout_constraintStart_toStartOf="@id/tvTitle"
+                motion:layout_constraintEnd_toStartOf="@+id/tvViews"
+                motion:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                motion:layout_constraintBottom_toBottomOf="@id/tvViews"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvViews">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                motion:layout_constraintEnd_toEndOf="@id/tvTitle"
+                motion:layout_constraintStart_toEndOf="@id/tvPlaces"
+                motion:layout_constraintTop_toBottomOf="@id/tvTitle"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvAbout">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                motion:layout_constraintStart_toStartOf="@id/featuredImage"
+                motion:layout_constraintEnd_toEndOf="@id/featuredImage"
+                motion:layout_constraintTop_toBottomOf="@id/tvViews"/>
+            <PropertySet
+                android:visibility="visible"/>
+        </Constraint>
+    </ConstraintSet>
+</MotionScene>
