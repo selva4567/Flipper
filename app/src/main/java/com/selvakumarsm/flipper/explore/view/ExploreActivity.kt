@@ -5,18 +5,14 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.selvakumarsm.elasticmodule2.ElasticProperties
 import com.selvakumarsm.elasticmodule2.ElasticView
 import com.selvakumarsm.elasticmodule2.StateChangeListener
-import com.selvakumarsm.flipper.R
 import com.selvakumarsm.flipper.databinding.ActivityExploreBinding
 import com.selvakumarsm.flipper.databinding.LayoutFeaturedItemBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_explore.view.*
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ExploreActivity : AppCompatActivity() {
@@ -40,6 +36,7 @@ class ExploreActivity : AppCompatActivity() {
         viewModel.featuredPlacesLiveData.observe(this){
             Log.d(TAG, "onCreate: New value for featured places ${it?.size}")
             it.forEach {
+                // TODO - Replace the views with Fragments to avoid spaghetti code and for better code handling and implement [ElasticProperty] to observe view state (collpased/expanded)
                 val featureViewBinding = LayoutFeaturedItemBinding.inflate(layoutInflater, viewBinding.elasticContainer, false)
                 featureViewBinding.tvTitle.text = it.title
                 featureViewBinding.tvAbout.text = it.about

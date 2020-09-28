@@ -11,7 +11,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import com.selvakumarsm.elasticmodule2.LayoutManager
 import java.lang.IllegalArgumentException
 
-// TODO - This class is incomplete. It works well only for first two child.
+// TODO - This class is incomplete. It works well only for first two child. Improve it to handle n number of child and better positioning logic.
 class HorizontalLayoutManager(
     private val gapInDp: Int = 10,
     private val layoutParams: ConstraintLayout.LayoutParams? = null

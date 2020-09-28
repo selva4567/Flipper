@@ -19,6 +19,7 @@ class ExploreViewModel @ViewModelInject constructor(
         private val TAG = ExploreViewModel::class.simpleName
     }
 
+    //TODO - use different model for holding view data instead of passing domain model back to the view.
     val popularPlacesLiveData = liveData {
         Log.d(TAG, "Call for popular places: ")
         showProgressBar(true)
@@ -34,6 +35,7 @@ class ExploreViewModel @ViewModelInject constructor(
         }
     }
 
+    //TODO - use different model for holding view data instead of passing domain model back to the view.
     val featuredPlacesLiveData = liveData {
         showProgressBar(true)
         featuredPlacesuseCase.invoke().collectLatest {

@@ -5,6 +5,25 @@ import android.util.AttributeSet
 import android.util.Log
 import androidx.constraintlayout.motion.widget.MotionLayout
 
+/**
+ *  Class which can expand/collapse on clicking on it. Based on the current state, view toggles
+ *  between expanded/collapsed.
+ *
+ *  State change is achieved using [MotionLayout]. Using single layout file and two different
+ *  [ConstraintSet] for the state definition, we are transitioning between states.
+ *
+ *  You can define initial state of the view [State.EXPANDED] or [State.COLLAPSED] while creating it
+ *  in the layout file.
+ *
+ *  Right now only supported state transition duration is 300ms. It can not be overridden now.
+ *
+ *  @property collapseSceneId (Mandatory) - Id of [ConstraintSet] in the motion scene file which represents
+ *  collapse state
+ *
+ *  @property expandSceneId  (Mandatory) - Id of [ConstraintSet] in the motion scene file which represents
+ *  expand state
+ *
+ */
 class ElasticView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -12,9 +31,11 @@ class ElasticView @JvmOverloads constructor(
 ) :
     MotionLayout(context, attrs, defStyleAttr), ElasticProperties {
 
+    /**
+     * Holds current state of the view
+     */
     var state: State
     private var callback: StateChangeListener? = null
-    lateinit var viewTag: String
     private val expandSceneId: Int
     private val collapseSceneId: Int
 
@@ -86,7 +107,7 @@ class ElasticView @JvmOverloads constructor(
         when (state) {
             State.COLLAPSED -> expand()
             State.EXPANDED -> collapse()
-            State.IN_TRANSITION -> Log.d(TAG, "toogle: In transition. Cannot toggle.")
+            State.IN_TRANSITION -> Log.d(TAG, "toggle: In transition. Cannot toggle.")
         }
     }
 
@@ -102,6 +123,11 @@ class ElasticView @JvmOverloads constructor(
         private const val TAG = "ElasticView"
     }
 
+    /**
+     * Different state supported by the view.
+     *
+     * @property IN_TRANSITION is not used as of now.
+     */
     enum class State {
         COLLAPSED, EXPANDED, IN_TRANSITION
     }

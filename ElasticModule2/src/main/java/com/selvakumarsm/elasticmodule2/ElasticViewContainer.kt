@@ -14,6 +14,15 @@ import com.selvakumarsm.elasticmodule2.ElasticView
 import com.selvakumarsm.elasticmodule2.StateChangeListener
 import java.lang.IllegalArgumentException
 
+/**
+ * Container class for collapsable/expandable views. Views that gets added into this container
+ * must implement the interface [ElasticProperties]
+ *
+ * @property layoutManager is mandatory for positioning the children of this container.
+ *
+ * Include this view into your layout file and start adding views to it. Depending on what type of
+ * layoutMangater you pass, child views gets positioned.
+ */
 class ElasticViewContainer @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
