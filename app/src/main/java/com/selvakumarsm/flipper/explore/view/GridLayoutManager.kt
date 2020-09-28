@@ -71,7 +71,7 @@ class GridLayoutManager(
     override fun getLayoutParams(context: Context): ConstraintLayout.LayoutParams {
         return layoutParams ?: ConstraintLayout.LayoutParams(
             fromDp(context, 150),
-            fromDp(context, 200)
+            fromDp(context, 250)
         ).also {
             it.topMargin = fromDp(context, gapInDp)
             it.bottomMargin = fromDp(context, gapInDp)

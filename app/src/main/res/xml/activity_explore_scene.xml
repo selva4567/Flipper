@@ -29,7 +29,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
-                motion:layout_constraintTop_toTopOf="parent"/>
+                motion:layout_constraintTop_toTopOf="parent" />
         </Constraint>
         <Constraint android:id="@+id/rvPopularPlaces">
             <Layout
@@ -44,15 +44,21 @@
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintTop_toBottomOf="@+id/tvScreenTitle"
                 />
+            <PropertySet
+                motion:visibilityMode="ignore"/>
         </Constraint>
         <Constraint android:id="@+id/elasticContainer">
             <Layout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
-                motion:layout_constraintTop_toBottomOf="@+id/tvScreenTitle" />
+                motion:layout_constraintTop_toBottomOf="@id/tvScreenTitle"
+                motion:layout_constraintBottom_toBottomOf="parent"/>
         </Constraint>
         <Constraint android:id="@+id/progressBar">
             <Layout
@@ -83,6 +89,8 @@
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintTop_toBottomOf="@+id/tvScreenTitle"
                 />
+            <PropertySet
+                motion:visibilityMode="ignore"/>
         </Constraint>
         <Constraint android:id="@+id/elasticContainer">
             <PropertySet

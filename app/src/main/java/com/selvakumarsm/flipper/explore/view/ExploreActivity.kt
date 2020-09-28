@@ -1,5 +1,6 @@
 package com.selvakumarsm.flipper.explore.view
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,9 +11,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.selvakumarsm.elasticmodule2.ElasticProperties
+import com.selvakumarsm.elasticmodule2.ElasticView
+import com.selvakumarsm.elasticmodule2.StateChangeListener
 import com.selvakumarsm.flipper.R
 import com.selvakumarsm.flipper.databinding.ActivityExploreBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_explore.view.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -50,6 +55,27 @@ class ExploreActivity : AppCompatActivity() {
             viewBinding.elasticContainer.layoutManager = GridLayoutManager()
             val view = layoutInflater.inflate(R.layout.layout_featured_item, viewBinding.elasticContainer, false)
             viewBinding.elasticContainer.addView(view)
+            (view as ElasticProperties).setStateChangeListener(object : StateChangeListener {
+                override fun postCollapse(view: ElasticView) {
+                    Log.d(TAG, "postCollapse: ")
+                    view.elevation = 0f
+                    viewBinding.rvPopularPlaces.visibility = View.VISIBLE
+                }
+
+                override fun postExpand(view: ElasticView) {
+                    Log.d(TAG, "postExpand: ")
+                }
+
+                override fun preCollapse(view: ElasticView) {
+                    Log.d(TAG, "preCollapse: ")
+                }
+
+                override fun preExpand(view: ElasticView) {
+                    Log.d(TAG, "preExpand: ")
+                    view.elevation = 1f
+                    viewBinding.rvPopularPlaces.visibility = View.INVISIBLE
+                }
+            })
         }
     }
 

@@ -9,7 +9,7 @@
         <Constraint android:id="@+id/featuredImage">
             <Layout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintTop_toTopOf="parent"/>
@@ -22,6 +22,9 @@
                 motion:layout_constraintStart_toStartOf="@id/featuredImage"
                 motion:layout_constraintEnd_toEndOf="@id/featuredImage"
                 motion:layout_constraintTop_toBottomOf="@id/featuredImage"/>
+            <CustomAttribute
+                motion:attributeName="textSize"
+                motion:customDimension="6sp"/>
         </Constraint>
         <Constraint android:id="@+id/tvPlaces">
             <Layout
@@ -69,12 +72,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 motion:layout_constraintStart_toStartOf="@id/featuredImage"
                 motion:layout_constraintEnd_toEndOf="@id/featuredImage"
                 motion:layout_constraintTop_toBottomOf="@id/featuredImage"/>
-            <Transform
-                android:scaleY="1.5"
-                android:scaleX="1.5"/>
+
+            <CustomAttribute
+                motion:attributeName="textSize"
+                motion:customDimension="14sp"/>
         </Constraint>
         <Constraint android:id="@+id/tvPlaces">
             <Layout
@@ -103,6 +109,9 @@
                 motion:layout_constraintStart_toStartOf="@id/featuredImage"
                 motion:layout_constraintEnd_toEndOf="@id/featuredImage"
                 motion:layout_constraintTop_toBottomOf="@id/tvViews"/>
+            <CustomAttribute
+                motion:attributeName="textSize"
+                motion:customDimension="7sp"/>
             <PropertySet
                 android:visibility="visible"/>
         </Constraint>

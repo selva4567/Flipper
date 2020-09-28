@@ -4,11 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
-    android:clipChildren="false"
-    app:layoutDescription="@xml/layout_featured_item_scene"
     app:collapsedSceneId="@+id/start"
-    app:expandedSceneId="@+id/end">
+    app:expandedSceneId="@+id/end"
+    app:layoutDescription="@xml/layout_featured_item_scene">
 
     <ImageView
         android:id="@+id/featuredImage"
@@ -23,9 +21,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
+        android:gravity="center"
         android:text="Top 7 Places to go for Breakfast Buffet"
-        android:textSize="14sp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <TextView
         android:id="@+id/tvPlaces"
@@ -49,8 +47,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:lineHeight="20sp"
         android:text="7 Places to go for Breakfast Buffet in Hyderabad. Best breakfast buffet restaurants in Hyderabad offering Western breakfast, North Indian breakfast and South Indian breakfast."
-        android:textSize="14sp"
         android:textAlignment="center"
-        android:lineHeight="20sp" />
+        android:textSize="14sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnShare"
+        style="@style/Widget.MaterialComponents.Button"
+        app:cornerRadius="10dp"
+        app:strokeColor="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share" />
+
 </com.selvakumarsm.elasticmodule2.ElasticView>
