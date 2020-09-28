@@ -14,8 +14,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Island Bali"
+        android:textColor="?android:attr/textColorPrimary"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@android:color/black"
         android:textStyle="bold"/>
 
     <TextView
@@ -42,15 +42,14 @@
         android:id="@+id/ivPlace"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/n3" />
+        android:scaleType="centerCrop" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/direction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_action_direction"
         android:scaleType="center"
+        android:src="@drawable/ic_action_direction"
         tools:layout_editor_absoluteX="336dp"
         tools:layout_editor_absoluteY="70dp" />
 </com.selvakumarsm.elasticmodule2.ElasticView>

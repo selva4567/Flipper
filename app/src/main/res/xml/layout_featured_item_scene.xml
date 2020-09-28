@@ -91,7 +91,7 @@
 
             <CustomAttribute
                 motion:attributeName="textSize"
-                motion:customDimension="14sp"/>
+                motion:customDimension="13sp"/>
         </Constraint>
         <Constraint android:id="@+id/tvPlaces">
             <Layout
@@ -130,7 +130,7 @@
             <Layout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 motion:layout_constraintStart_toStartOf="@+id/featuredImage"
                 motion:layout_constraintEnd_toEndOf="@id/featuredImage"
                 motion:layout_constraintTop_toBottomOf="@id/tvAbout"/>

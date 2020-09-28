@@ -8,9 +8,11 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.motion.widget.MotionScene
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import com.selvakumarsm.elasticmodule2.LayoutManager
+import java.lang.IllegalArgumentException
 
-class GridLayoutManager(
-    private val colSize: Int = 2,
+// TODO - This class is incomplete. It works well only for first two child.
+class HorizontalLayoutManager(
     private val gapInDp: Int = 10,
     private val layoutParams: ConstraintLayout.LayoutParams? = null
 ) : LayoutManager {
@@ -22,11 +24,6 @@ class GridLayoutManager(
     ) {
         rootView.apply {
             TransitionManager.beginDelayedTransition(this)
-            val childBefore = if (childCount <= 1) null else getChildAt(childCount - 2)
-            Log.d(
-                TAG,
-                "applyConstraint: aligning ${child.id} vertically to ${childBefore?.id}"
-            )
             val startScene = getConstraintSet(containerTransition!!.startConstraintSetId)
             startScene.clone(this)
             if (childCount == 1) {
@@ -59,6 +56,8 @@ class GridLayoutManager(
                         ConstraintSet.END
                     )
                 }
+            } else {
+                throw IllegalArgumentException("Cannot add more than two views.")
             }
             startScene.applyTo(this)
             setTransition(
@@ -70,8 +69,8 @@ class GridLayoutManager(
 
     override fun getLayoutParams(context: Context): ConstraintLayout.LayoutParams {
         return layoutParams ?: ConstraintLayout.LayoutParams(
-            fromDp(context, 150),
-            fromDp(context, 250)
+            fromDp(context, 180),
+            fromDp(context, 230)
         ).also {
             it.topMargin = fromDp(context, gapInDp)
             it.bottomMargin = fromDp(context, gapInDp)
@@ -87,6 +86,6 @@ class GridLayoutManager(
 
 
     companion object {
-        private val TAG = GridLayoutManager::class.simpleName
+        private val TAG = HorizontalLayoutManager::class.simpleName
     }
 }

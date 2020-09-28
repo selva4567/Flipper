@@ -1,4 +1,4 @@
-package com.selvakumarsm.flipper.explore.view
+package com.selvakumarsm.elasticmodule2
 
 import android.content.Context
 import android.view.View

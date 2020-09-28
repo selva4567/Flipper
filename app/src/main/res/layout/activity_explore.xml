@@ -8,7 +8,7 @@
     app:layoutDescription="@xml/activity_explore_scene"
     tools:context=".explore.view.ExploreActivity">
 
-    <com.selvakumarsm.flipper.explore.view.ElasticViewContainer
+    <com.selvakumarsm.elasticmodule2.ElasticViewContainer
         android:id="@+id/elasticContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -18,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Explore"
+        android:textColor="?android:attr/textColorPrimary"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <androidx.recyclerview.widget.RecyclerView

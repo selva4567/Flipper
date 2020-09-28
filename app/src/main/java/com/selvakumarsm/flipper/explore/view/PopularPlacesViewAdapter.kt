@@ -24,6 +24,7 @@ class PopularPlacesViewAdapter :
             binding.tvMiles.text = place.distance
             binding.ivPlace.setImageResource(place.drawableId ?: R.drawable.kachiguda)
             binding.tvMore.text = place.description
+            binding.tvAbout.text = place.about
             binding.root.setStateChangeListener(object : StateChangeListener {
                 override fun postCollapse(view: ElasticView) {
                     Log.d(TAG, "postCollapse: ${binding.tvAbout.text}")

@@ -3,4 +3,9 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="pureBlack">#000000</color>
+    <color name="pureWhite">#FFFFFF</color>
+
+    <color name="colorPrimaryText">@color/pureBlack</color>
+    <color name="statusBarColor">@android:color/background_light</color>
 </resources>
