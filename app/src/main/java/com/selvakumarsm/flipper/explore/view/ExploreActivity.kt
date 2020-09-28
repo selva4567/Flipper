@@ -40,6 +40,10 @@ class ExploreActivity : AppCompatActivity() {
             popularPlacesViewAdapter.submitList(it)
         }
 
+        viewModel.featuredPlacesLiveData.observe(this){
+            Log.d(TAG, "onCreate: New value for featured places ${it?.size}")
+        }
+
         viewModel.progressBarVisibilityLiveData.observe(this) {
             Log.d(TAG, "onCreate: New value for progressbar visibility $it")
             if (it)

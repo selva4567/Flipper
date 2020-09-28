@@ -1,11 +1,12 @@
 package com.selvakumarsm.flipper.explore.data.db
 
 import com.selvakumarsm.flipper.R
+import com.selvakumarsm.flipper.explore.domain.model.Featured
 import com.selvakumarsm.flipper.explore.domain.model.Place
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
-class HangoutsCacheImpl @Inject constructor(): HangoutsCache {
+class HangoutsCacheImpl @Inject constructor() : HangoutsCache {
 
     override suspend fun getCachedTrendingHangouts(): List<Place> {
         delay(3000)
@@ -37,6 +38,27 @@ class HangoutsCacheImpl @Inject constructor(): HangoutsCache {
                 state = "Telangana"
                 pincode = "500008"
                 drawableId = R.drawable.madhapur
+            }
+        )
+    }
+
+    override suspend fun getCachedFeaturedPlaces(): List<Featured> {
+        return listOf(
+            Featured().apply {
+                title = "Top 7 Places to go for Breakfast Buffet"
+                about =
+                    "7 Places to go for Breakfast Buffet in Hyderabad. Best breakfast buffet restaurents in Hyderbad offering Western breakfast, North Indian breakfast, and South Indian breakfast."
+                followers = 158
+                noOfPlaces = 6
+                views = 23000
+            },
+            Featured().apply {
+                title = "Contemporary Indian art in Hyderabad"
+                about =
+                    "From emerging Indian artists to modern masters, these galleries come recommended by locals."
+                followers = 111
+                noOfPlaces = 6
+                views = 8000
             }
         )
     }

@@ -5,13 +5,13 @@ import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.selvakumarsm.flipper.explore.domain.repository.HangoutsResult
+import com.selvakumarsm.flipper.explore.domain.usecase.GetFeaturedPlacesUseCase
 import com.selvakumarsm.flipper.explore.domain.usecase.GetPopularPlacesUseCase
-import com.selvakumarsm.flipper.explore.domain.usecase.GetTrendingPlacesUseCase
 import kotlinx.coroutines.flow.collectLatest
 
 class ExploreViewModel @ViewModelInject constructor(
     @Assisted private val savedStateHandle: SavedStateHandle,
-    private val trendingPlaceUseCase: GetTrendingPlacesUseCase,
+    private val featuredPlacesuseCase: GetFeaturedPlacesUseCase,
     private val popularPlaceUseCase: GetPopularPlacesUseCase
 ) : ViewModel() {
 
@@ -34,10 +34,26 @@ class ExploreViewModel @ViewModelInject constructor(
         }
     }
 
+    val featuredPlacesLiveData = liveData {
+        showProgressBar(true)
+        featuredPlacesuseCase.invoke().collectLatest {
+            when (it) {
+                is HangoutsResult.Success -> {
+                    showProgressBar(false)
+                    emit(it.hangouts)
+                }
+                else -> Log.d(TAG, "Invalid result for featured place request: $it")
+            }
+        }
+    }
+
     private val _progressBarVisibilityLiveData = MutableLiveData<Boolean>()
     val progressBarVisibilityLiveData: LiveData<Boolean> = _progressBarVisibilityLiveData
 
     private fun showProgressBar(visible: Boolean) {
+        if (!visible)
+            if (popularPlacesLiveData.value == null && featuredPlacesLiveData.value == null)
+                return
         _progressBarVisibilityLiveData.value = visible
     }
 

@@ -1,19 +1,20 @@
 package com.selvakumarsm.flipper.explore.domain.usecase
 
-import com.selvakumarsm.flipper.explore.domain.model.Place
+import com.selvakumarsm.flipper.explore.domain.model.Featured
 import com.selvakumarsm.flipper.explore.domain.repository.HangoutsRepository
 import com.selvakumarsm.flipper.explore.domain.repository.HangoutsResult
 import com.selvakumarsm.flipper.explore.domain.repository.LocationRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class GetPopularPlacesUseCase @Inject constructor(
+class GetFeaturedPlacesUseCase @Inject constructor(
     private val hangoutsRepository: HangoutsRepository,
     private val locationRepository: LocationRepository
 ) {
 
-    suspend operator fun invoke(): Flow<HangoutsResult<List<Place>>> {
+    suspend operator fun invoke(): Flow<HangoutsResult<List<Featured>>> {
         val userLocation = locationRepository.getUserLastKnownLocation()
-        return hangoutsRepository.getPopularAreasNear(userLocation)
+        return hangoutsRepository.getFeaturedList(userLocation)
     }
 }

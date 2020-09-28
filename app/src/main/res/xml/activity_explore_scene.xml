@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MotionScene 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
     <Transition
@@ -8,15 +7,14 @@
         motion:constraintSetStart="@id/start"
         motion:duration="1000">
         <OnSwipe
-            motion:touchAnchorId="@id/rvPopularPlaces"
-            motion:touchAnchorSide="top"
             motion:dragDirection="dragUp"
-            />
-       <KeyFrameSet>
-           <KeyPosition
-               motion:framePosition="50"
-               motion:motionTarget="@+id/rvPopularPlaces" />
-       </KeyFrameSet>
+            motion:touchAnchorId="@id/rvPopularPlaces"
+            motion:touchAnchorSide="top" />
+        <KeyFrameSet>
+            <KeyPosition
+                motion:framePosition="50"
+                motion:motionTarget="@+id/rvPopularPlaces" />
+        </KeyFrameSet>
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
@@ -31,6 +29,15 @@
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintTop_toTopOf="parent" />
         </Constraint>
+        <Constraint android:id="@+id/labelPopular">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintBottom_toTopOf="@+id/rvPopularPlaces"/>
+        </Constraint>
         <Constraint android:id="@+id/rvPopularPlaces">
             <Layout
                 android:layout_width="0dp"
@@ -42,24 +49,23 @@
                 motion:layout_constraintBottom_toBottomOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
-                motion:layout_constraintTop_toBottomOf="@+id/tvScreenTitle"
-                />
-            <PropertySet
-                motion:visibilityMode="ignore"/>
+                motion:layout_constraintTop_toBottomOf="@+id/tvScreenTitle" />
+            <PropertySet motion:visibilityMode="ignore" />
         </Constraint>
         <Constraint android:id="@+id/elasticContainer">
             <Layout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="40dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="60dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
+                motion:layout_constraintBottom_toBottomOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
-                motion:layout_constraintTop_toBottomOf="@id/tvScreenTitle"
-                motion:layout_constraintBottom_toBottomOf="parent"/>
+                motion:layout_constraintTop_toBottomOf="@id/tvScreenTitle" />
         </Constraint>
+
         <Constraint android:id="@+id/progressBar">
             <Layout
                 android:layout_width="wrap_content"
@@ -69,12 +75,12 @@
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintTop_toTopOf="parent" />
-            <PropertySet
-                motion:visibilityMode="ignore"/>
+            <PropertySet motion:visibilityMode="ignore" />
         </Constraint>
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/end"
+    <ConstraintSet
+        android:id="@+id/end"
         motion:deriveConstraintsFrom="@id/start">
         <Constraint android:id="@+id/rvPopularPlaces">
             <Layout
@@ -87,18 +93,14 @@
                 motion:layout_constraintBottom_toBottomOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
-                motion:layout_constraintTop_toBottomOf="@+id/tvScreenTitle"
-                />
-            <PropertySet
-                motion:visibilityMode="ignore"/>
+                motion:layout_constraintTop_toBottomOf="@+id/tvScreenTitle" />
+            <PropertySet motion:visibilityMode="ignore" />
         </Constraint>
         <Constraint android:id="@+id/elasticContainer">
-            <PropertySet
-                android:visibility="gone"/>
+            <PropertySet android:visibility="gone" />
         </Constraint>
         <Constraint android:id="@id/progressBar">
-            <PropertySet
-                motion:visibilityMode="ignore"/>
+            <PropertySet motion:visibilityMode="ignore" />
         </Constraint>
     </ConstraintSet>
 </MotionScene>
