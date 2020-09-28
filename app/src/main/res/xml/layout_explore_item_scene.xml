@@ -32,6 +32,17 @@
                 motion:layout_constraintTop_toBottomOf="@id/tvName"
                 motion:layout_constraintEnd_toEndOf="@id/tvName"/>
         </Constraint>
+        <Constraint android:id="@+id/tvMore">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                motion:layout_constraintStart_toStartOf="@id/tvName"
+                motion:layout_constraintTop_toBottomOf="@id/tvAbout"
+                motion:layout_constraintEnd_toEndOf="@id/tvName"/>
+            <PropertySet
+                android:visibility="gone"/>
+        </Constraint>
         <Constraint android:id="@+id/tvMiles">
             <Layout
                 android:layout_width="0dp"
@@ -81,13 +92,24 @@
                 motion:layout_constraintTop_toBottomOf="@id/direction"
                 motion:layout_constraintEnd_toEndOf="@id/tvName"/>
         </Constraint>
-        <Constraint android:id="@+id/tvMiles">
+        <Constraint android:id="@+id/tvMore">
             <Layout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 motion:layout_constraintStart_toStartOf="@id/tvName"
                 motion:layout_constraintTop_toBottomOf="@id/tvAbout"
+                motion:layout_constraintEnd_toEndOf="@id/tvName"/>
+            <PropertySet
+                android:visibility="visible"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvMiles">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                motion:layout_constraintStart_toStartOf="@id/tvName"
+                motion:layout_constraintTop_toBottomOf="@id/tvMore"
                 motion:layout_constraintEnd_toEndOf="@id/tvName"/>
         </Constraint>
         <Constraint android:id="@+id/direction">

@@ -1,5 +1,6 @@
 package com.selvakumarsm.flipper.explore.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -22,13 +23,14 @@ class PopularPlacesViewAdapter :
             binding.tvName.text = place.name
             binding.tvMiles.text = place.distance
             binding.ivPlace.setImageResource(place.drawableId ?: R.drawable.kachiguda)
+            binding.tvMore.text = place.description
             binding.root.setStateChangeListener(object : StateChangeListener {
                 override fun postCollapse(view: ElasticView) {
-                    binding.tvAbout.text = place.about
+                    Log.d(TAG, "postCollapse: ${binding.tvAbout.text}")
                 }
 
                 override fun postExpand(view: ElasticView) {
-                    binding.tvAbout.text = place.description
+                    Log.d(TAG, "postEXpand: ${binding.tvAbout.text}")
                 }
 
                 override fun preCollapse(view: ElasticView) {
@@ -50,6 +52,10 @@ class PopularPlacesViewAdapter :
     override fun onBindViewHolder(holder: PopularPlacesViewHolder, position: Int) {
         val place = getItem(position)
         holder.bind(place)
+    }
+
+    companion object {
+        private val TAG = PopularPlacesViewAdapter::class.simpleName
     }
 }
 

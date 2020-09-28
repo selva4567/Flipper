@@ -31,6 +31,13 @@
         android:lineHeight="20sp"
         android:text="Historic Commercial hub with markets, plus cricket and soccer at the Lal Bahadur Shastri Stadium" />
 
+    <TextView
+        android:id="@+id/tvMore"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:lineHeight="20sp"
+        android:text="Historic Commercial hub with markets, plus cricket and soccer at the Lal Bahadur Shastri Stadium" />
+
     <ImageView
         android:id="@+id/ivPlace"
         android:layout_width="80dp"

@@ -52,6 +52,7 @@ class HangoutsCacheImpl @Inject constructor(): HangoutsCache {
                 state = "Telangana"
                 pincode = "500008"
                 drawableId = R.drawable.golconda
+                distance = "0.2 mi"
             },
             Place("Gachibowli").apply {
                 about = "Gachibowli Stadium & upscale eateries"
@@ -61,6 +62,7 @@ class HangoutsCacheImpl @Inject constructor(): HangoutsCache {
                 state = "Telangana"
                 pincode = "5000032"
                 drawableId = R.drawable.gachibowli
+                distance = "0.8 mi"
             },
 
             Place("Madhapur").apply {
@@ -71,6 +73,7 @@ class HangoutsCacheImpl @Inject constructor(): HangoutsCache {
                 state = "Telangana"
                 pincode = "500008"
                 drawableId = R.drawable.madhapur
+                distance = "1.1 mi"
             },
             Place("Abids").apply {
                 about =
@@ -81,7 +84,7 @@ class HangoutsCacheImpl @Inject constructor(): HangoutsCache {
                 state = "Telangana"
                 pincode = "500008"
                 drawableId = R.drawable.abids
-                distance = "0.8 mi"
+                distance = "1.8 mi"
             },
             Place("Kachiguda").apply {
                 about =

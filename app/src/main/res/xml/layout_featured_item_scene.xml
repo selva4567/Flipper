@@ -56,6 +56,17 @@
             <PropertySet
                 android:visibility="gone"/>
         </Constraint>
+        <Constraint android:id="@+id/btnMaps">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                motion:layout_constraintStart_toStartOf="@+id/featuredImage"
+                motion:layout_constraintEnd_toEndOf="@id/featuredImage"
+                motion:layout_constraintTop_toBottomOf="@id/tvAbout"/>
+            <PropertySet
+                android:visibility="gone"/>
+        </Constraint>
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
@@ -112,6 +123,17 @@
             <CustomAttribute
                 motion:attributeName="textSize"
                 motion:customDimension="7sp"/>
+            <PropertySet
+                android:visibility="visible"/>
+        </Constraint>
+        <Constraint android:id="@+id/btnMaps">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                motion:layout_constraintStart_toStartOf="@+id/featuredImage"
+                motion:layout_constraintEnd_toEndOf="@id/featuredImage"
+                motion:layout_constraintTop_toBottomOf="@id/tvAbout"/>
             <PropertySet
                 android:visibility="visible"/>
         </Constraint>

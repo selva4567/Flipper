@@ -52,13 +52,15 @@
         android:textAlignment="center"
         android:textSize="14sp" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnShare"
-        style="@style/Widget.MaterialComponents.Button"
-        app:cornerRadius="10dp"
-        app:strokeColor="@color/colorPrimary"
+    <Button
+        android:id="@+id/btnMaps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Share" />
-
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:background="@drawable/bacground_rounded"
+        android:text="Show In Maps"
+        android:textColor="@android:color/white"/>
 </com.selvakumarsm.elasticmodule2.ElasticView>
