@@ -13,7 +13,7 @@ import androidx.constraintlayout.motion.widget.MotionLayout
  *  [ConstraintSet] for the state definition, we are transitioning between states.
  *
  *  You can define initial state of the view [State.EXPANDED] or [State.COLLAPSED] while creating it
- *  in the layout file.
+ *  in the layout file. By default, this view will render in [State.EXPANDED].
  *
  *  Right now only supported state transition duration is 300ms. It can not be overridden now.
  *
@@ -43,15 +43,15 @@ class ElasticView @JvmOverloads constructor(
         val arr = context.obtainStyledAttributes(attrs, R.styleable.ElasticView, 0, 0)
         collapseSceneId = arr.getResourceId(R.styleable.ElasticView_collapsedSceneId, -1)
         expandSceneId = arr.getResourceId(R.styleable.ElasticView_expandedSceneId, -1)
-        state = when (arr.getResourceId(R.styleable.ElasticView_initialState, 0)) {
+        state = when (arr.getInt(R.styleable.ElasticView_initialState, 0)) {
             0 -> State.COLLAPSED
             1 -> State.EXPANDED
             else -> {
                 Log.d(TAG, "Invalid initialstate for view: ")
-                State.COLLAPSED
+                State.EXPANDED
             }
         }
-
+        Log.d(TAG, "Initial State set : $state")
         setupTransition()
         setupCallbacks()
     }

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/featuredRoot"
     android:elevation="5dp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="250dp"
+    android:layout_height="400dp"
     app:collapsedSceneId="@+id/start"
     app:expandedSceneId="@+id/end"
     app:layoutDescription="@xml/layout_featured_item_scene">

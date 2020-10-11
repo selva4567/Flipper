@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition/>
+
+    <ConstraintSet android:id="@+id/expand">
+        <Constraint android:id="@+id/labelQuestion">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start"
+                app:layout_constraintTop_toTopOf="@+id/guideline_top" />
+            <PropertySet
+                android:visibility="visible"/>
+        </Constraint>
+        <Constraint android:id="@+id/labelNote">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@+id/labelQuestion" />
+            <PropertySet
+                android:visibility="visible"/>
+        </Constraint>
+        <Constraint android:id="@+id/rvRepaymentOptions">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@+id/labelNote" />
+            <PropertySet
+                android:visibility="visible"/>
+        </Constraint>
+        <Constraint android:id="@+id/btnCreateOwnPlan">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@+id/rvRepaymentOptions" />
+            <PropertySet
+                android:visibility="visible"/>
+        </Constraint>
+        <Constraint android:id="@+id/btnSelectBank">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+            <PropertySet
+                android:visibility="visible"/>
+        </Constraint>
+        <Constraint android:id="@+id/labelEMI">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/labelDuration"
+                app:layout_constraintEnd_toStartOf="@+id/labelDuration"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start" />
+            <PropertySet
+                android:visibility="invisible"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvEMIAmount">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/tvEMIDuration"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@+id/labelEMI"/>
+            <PropertySet
+                android:visibility="invisible"/>
+        </Constraint>
+        <Constraint android:id="@+id/labelDuration">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/ivExpand"
+                app:layout_constraintStart_toEndOf="@+id/labelEMI"
+                app:layout_constraintTop_toTopOf="@+id/guideline_top" />
+            <PropertySet
+                android:visibility="invisible"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvEMIDuration">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/ivExpand"
+                app:layout_constraintStart_toEndOf="@+id/tvEMIAmount"
+                app:layout_constraintTop_toBottomOf="@+id/labelDuration"/>
+            <PropertySet
+                android:visibility="invisible"/>
+        </Constraint>
+        <Constraint android:id="@+id/ivExpand">
+            <Layout
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvEMIDuration"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+                app:layout_constraintTop_toTopOf="@+id/labelDuration"/>
+            <PropertySet
+                android:visibility="invisible"/>
+        </Constraint>
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/collapse">
+        <Constraint android:id="@+id/labelQuestion">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start"
+                app:layout_constraintTop_toTopOf="@+id/guideline_top" />
+            <PropertySet
+                android:visibility="invisible"/>
+        </Constraint>
+        <Constraint android:id="@+id/labelNote">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@+id/labelQuestion" />
+            <PropertySet
+                android:visibility="invisible"/>
+        </Constraint>
+        <Constraint android:id="@+id/rvRepaymentOptions">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@+id/labelNote" />
+            <PropertySet
+                android:visibility="invisible"/>
+        </Constraint>
+        <Constraint android:id="@+id/btnCreateOwnPlan">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@+id/rvRepaymentOptions" />
+            <PropertySet
+                android:visibility="invisible"/>
+        </Constraint>
+        <Constraint android:id="@+id/btnSelectBank">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+            <PropertySet
+                android:visibility="invisible"/>
+        </Constraint>
+        <Constraint android:id="@+id/labelEMI">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/labelDuration"
+                app:layout_constraintEnd_toStartOf="@+id/labelDuration"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start" />
+            <PropertySet
+                android:visibility="visible"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvEMIAmount">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/tvEMIDuration"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@+id/labelEMI"/>
+            <PropertySet
+                android:visibility="visible"/>
+        </Constraint>
+        <Constraint android:id="@+id/labelDuration">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/ivExpand"
+                app:layout_constraintStart_toEndOf="@+id/labelEMI"
+                app:layout_constraintTop_toTopOf="@+id/guideline_top" />
+            <PropertySet
+                android:visibility="visible"/>
+        </Constraint>
+        <Constraint android:id="@+id/tvEMIDuration">
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/ivExpand"
+                app:layout_constraintStart_toEndOf="@+id/tvEMIAmount"
+                app:layout_constraintTop_toBottomOf="@+id/labelDuration"/>
+            <PropertySet
+                android:visibility="visible"/>
+        </Constraint>
+        <Constraint android:id="@+id/ivExpand">
+            <Layout
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvEMIDuration"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+                app:layout_constraintTop_toTopOf="@+id/labelDuration"/>
+            <PropertySet
+                android:visibility="visible"/>
+        </Constraint>
+    </ConstraintSet>
+</MotionScene>

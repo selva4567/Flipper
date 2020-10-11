@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimaryText">@color/pureWhite</color>
+    <color name="colorSecondaryText">@color/lightWhite</color>
     <color name="statusBarColor">@android:color/background_dark</color>
+    <color name="colorSecondaryBackground">#363738</color>
+    <color name="colorSecondaryBackgroundCompliment">@android:color/background_light</color>
 </resources>

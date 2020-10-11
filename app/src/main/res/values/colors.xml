@@ -4,8 +4,18 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="pureBlack">#000000</color>
+    <color name="pureGrey">#121212</color>
     <color name="pureWhite">#FFFFFF</color>
+    <color name="lightWhite">#dbddde</color>
+    <color name="pureBrown">#900C3F</color>
+    <color name="lightBlue">#b0dbf4</color>
+    <color name="mediumPurple">#9370DB</color>
 
     <color name="colorPrimaryText">@color/pureBlack</color>
+    <color name="colorSecondaryText">@color/pureGrey</color>
     <color name="statusBarColor">@android:color/background_light</color>
+    <color name="colorSecondaryBackground">@android:color/background_light</color>
+    <color name="colorSecondaryBackgroundCompliment">@color/pureGrey</color>
+    <color name="colorPrimaryButtonBackground">@color/colorPrimaryDark</color>
+    <color name="colorPrimaryButtonText">@color/pureWhite</color>
 </resources>

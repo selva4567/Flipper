@@ -4,4 +4,22 @@
     <string name="sony_xm4">Sony WH-10000XM4 Industry Leading Wireless Noise Cancelling Headpone</string>
     <string name="sony_xm4_price">$355.21</string>
     <string name="in_stock">In stock</string>
+
+    <!-- Select bank/account screen -->
+    <string name="label_loan_title">where should we send the money?</string>
+    <string name="label_loan_note">amount will be credited to this bank account. EMI will also be debited from this bank account</string>
+    <string name="paytm_bank">Paytm Payments Bank</string>
+    <string name="paytm_num">91935670475</string>
+    <string name="label_change_acnt">Change account</string>
+    <string name="label_start_kyc">Tap for 1-click KYC</string>
+
+    <!-- Repayment screen -->
+    <string name="label_repayment_title">how do you wish to repay?</string>
+    <string name="label_repayment_note">choose one of our recommended plans or make your own</string>
+    <string name="create_own_plan">Create your own plan</string>
+    <string name="see_calculations">See calculations</string>
+    <string name="label_select_bank">Select your bank account</string>
+    <string name="label_emi">EMI</string>
+    <string name="label_duration">duration</string>
+
 </resources>
