@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.selvakumarsm.elasticmodule2.ElasticView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black3"
-    app:collapsedSceneId="@+id/collapse"
-    app:expandedSceneId="@+id/expand"
+    android:background="@color/black2"
+    app:expandedSceneId="@+id/expanded"
+    app:collapsedSceneId="@+id/collapsed"
     app:initialState="expanded"
-    app:layoutDescription="@xml/layout_select_repayment_scene">
+    app:layoutDescription="@xml/layout_loan_amount_selection_scene">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_start"
@@ -43,74 +42,35 @@
         style="@style/PrimaryTextTheme"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/label_repayment_title" />
+        android:text="@string/label_amount_needed" />
 
     <TextView
         android:id="@+id/labelNote"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/label_repayment_note"
-        android:textSize="16sp"
-        />
+        android:text="@string/label_amount_needed_note"
+        android:textSize="16sp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvRepaymentOptions"
+    <ImageView
+        android:id="@+id/ivAmountSelectionDialer"
         android:layout_width="0dp"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/btnSelectBank"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/top_rounded_button"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:text="@string/label_select_bank"
-        android:textAllCaps="false"
-        android:textColor="@color/colorPrimaryButtonText"
-        android:textSize="20sp"/>
-
-    <Button
-        android:id="@+id/btnCreateOwnPlan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_button"
-        android:padding="15dp"
-        android:text="@string/create_own_plan"
-        android:textAllCaps="false"
-        android:textSize="17sp" />
-
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/amount_selection_dialer" />
 
     <TextView
-        android:id="@+id/labelEMI"
+        android:id="@+id/labelCreditAmount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/label_emi"
-        android:textSize="16sp"
-      />
+        android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/tvEMIAmount"
+        android:id="@+id/creditAmount"
         style="@style/CollapsedPrimaryTextTheme"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="$ 4,247 /mo" />
-
-    <TextView
-        android:id="@+id/labelDuration"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/label_duration"
-        android:textSize="16sp"
-      />
-
-    <TextView
-        android:id="@+id/tvEMIDuration"
-        style="@style/CollapsedPrimaryTextTheme"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="12 months"
-        />
 
     <ImageView
         android:id="@+id/ivExpand"
@@ -118,4 +78,15 @@
         android:layout_height="12dp"
         app:srcCompat="@drawable/ic_action_expand" />
 
+    <Button
+        android:id="@+id/btnProceedToEmi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/top_rounded_button"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="@string/label_to_emi_selection"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryButtonText"
+        android:textSize="20sp" />
 </com.selvakumarsm.elasticmodule2.ElasticView>

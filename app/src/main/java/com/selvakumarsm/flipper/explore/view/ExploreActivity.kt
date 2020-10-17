@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.selvakumarsm.elasticmodule2.ElasticProperties
 import com.selvakumarsm.elasticmodule2.ElasticView
-import com.selvakumarsm.elasticmodule2.StateChangeListener
+import com.selvakumarsm.elasticmodule2.ElasticStateChangeListener
 import com.selvakumarsm.flipper.databinding.ActivityExploreBinding
 import com.selvakumarsm.flipper.databinding.LayoutFeaturedItemBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +44,7 @@ class ExploreActivity : AppCompatActivity() {
                 featureViewBinding.tvViews.text = "${it.views}K views"
                 featureViewBinding.featuredImage.setImageResource(it.resourceId!!)
                 viewBinding.elasticContainer.addView(featureViewBinding.root)
-                (featureViewBinding.root as ElasticProperties).setStateChangeListener(FeaturedItemStateChangeListener())
+                (featureViewBinding.root as ElasticProperties).setStateChangeListener(FeaturedItemElasticStateChangeListener())
             }
         }
 
@@ -82,7 +82,7 @@ class ExploreActivity : AppCompatActivity() {
         private val TAG = ExploreActivity::class.simpleName
     }
 
-    inner class FeaturedItemStateChangeListener: StateChangeListener {
+    inner class FeaturedItemElasticStateChangeListener: ElasticStateChangeListener {
         override fun postCollapse(view: ElasticView) {
             Log.d(TAG, "postCollapse: ${view.id}")
             view.elevation = 0f

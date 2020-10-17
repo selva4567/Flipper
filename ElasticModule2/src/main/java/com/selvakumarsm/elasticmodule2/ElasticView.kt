@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import androidx.constraintlayout.motion.widget.MotionLayout
+import com.selvakumarsm.elasticmodule2.ElasticProperties.State
 
 /**
  *  Class which can expand/collapse on clicking on it. Based on the current state, view toggles
@@ -34,8 +35,8 @@ class ElasticView @JvmOverloads constructor(
     /**
      * Holds current state of the view
      */
-    var state: State
-    private var callback: StateChangeListener? = null
+    private var state: State
+    private var callback: ElasticStateChangeListener? = null
     private val expandSceneId: Int
     private val collapseSceneId: Int
 
@@ -57,9 +58,6 @@ class ElasticView @JvmOverloads constructor(
     }
 
     private fun setupCallbacks() {
-        setOnClickListener {
-            toggle()
-        }
         setTransitionListener(object : TransitionListener {
             override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
             }
@@ -81,13 +79,15 @@ class ElasticView @JvmOverloads constructor(
         })
     }
 
-    override fun setStateChangeListener(stateChangeListener: StateChangeListener) {
-        callback = stateChangeListener
+    override fun setStateChangeListener(elasticStateChangeListener: ElasticStateChangeListener) {
+        callback = elasticStateChangeListener
     }
 
     override fun expand() {
         if (expandSceneId == -1)
             throw IllegalStateException("Invalid expand scene id $expandSceneId")
+        if (state == State.EXPANDED)
+            return
         Log.d(TAG, "expand: $id")
         callback?.preExpand(this)
         transitionToState(expandSceneId)
@@ -97,6 +97,8 @@ class ElasticView @JvmOverloads constructor(
     override fun collapse() {
         if (collapseSceneId == -1)
             throw IllegalStateException("Invalid collapse scene id $collapseSceneId")
+        if (state == State.COLLAPSED)
+            return
         Log.d(TAG, "collapse: $id ")
         callback?.preCollapse(this)
         transitionToState(collapseSceneId)
@@ -111,24 +113,18 @@ class ElasticView @JvmOverloads constructor(
         }
     }
 
+    override fun getCurrentElasticState() = state
+
     private fun setupTransition() {
         if (state == State.EXPANDED) {
             setTransition(expandSceneId, collapseSceneId)
         } else {
             setTransition(collapseSceneId, expandSceneId)
         }
+        setTransitionDuration(500)
     }
 
     companion object {
         private const val TAG = "ElasticView"
-    }
-
-    /**
-     * Different state supported by the view.
-     *
-     * @property IN_TRANSITION is not used as of now.
-     */
-    enum class State {
-        COLLAPSED, EXPANDED, IN_TRANSITION
     }
 }

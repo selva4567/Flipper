@@ -22,4 +22,13 @@
     <string name="label_emi">EMI</string>
     <string name="label_duration">duration</string>
 
+    <!--Loan Amount Selection screen-->
+    <string name="label_amount_needed">nikunj, how much do you need?</string>
+    <string name="label_amount_needed_note">move the dial and set any amount you need upto $458521</string>
+    <string name="label_amount_needed_note_2">stas is instant money will be credited within seconds.</string>
+    <string name="label_to_emi_selection">Proceed to EMI selection</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

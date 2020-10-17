@@ -8,7 +8,7 @@
     app:layoutDescription="@xml/activity_explore_scene"
     tools:context=".explore.view.ExploreActivity">
 
-    <com.selvakumarsm.elasticmodule2.ElasticViewContainer
+    <com.selvakumarsm.elasticmodule2.StackViewGroup
         android:id="@+id/elasticContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

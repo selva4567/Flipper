@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.selvakumarsm.elasticmodule2.ElasticView
-import com.selvakumarsm.elasticmodule2.StateChangeListener
+import com.selvakumarsm.elasticmodule2.ElasticStateChangeListener
 import com.selvakumarsm.flipper.R
 import com.selvakumarsm.flipper.databinding.LayoutExploreItemBinding
 import com.selvakumarsm.flipper.explore.domain.model.Place
@@ -25,7 +25,7 @@ class PopularPlacesViewAdapter :
             binding.ivPlace.setImageResource(place.drawableId ?: R.drawable.kachiguda)
             binding.tvMore.text = place.description
             binding.tvAbout.text = place.about
-            binding.root.setStateChangeListener(object : StateChangeListener {
+            binding.root.setStateChangeListener(object : ElasticStateChangeListener {
                 override fun postCollapse(view: ElasticView) {
                     Log.d(TAG, "postCollapse: ${binding.tvAbout.text}")
                 }

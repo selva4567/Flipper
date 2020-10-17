@@ -64,7 +64,12 @@ class HorizontalLayoutManager(
                 containerTransition!!.startConstraintSetId,
                 containerTransition!!.endConstraintSetId
             )
+            transitionToStart()
         }
+    }
+
+    override fun removeConstraint(child: View) {
+        TODO("Not yet implemented")
     }
 
     override fun getLayoutParams(context: Context): ConstraintLayout.LayoutParams {

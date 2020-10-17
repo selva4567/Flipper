@@ -7,6 +7,7 @@ import androidx.lifecycle.*
 import com.selvakumarsm.flipper.explore.domain.repository.HangoutsResult
 import com.selvakumarsm.flipper.explore.domain.usecase.GetFeaturedPlacesUseCase
 import com.selvakumarsm.flipper.explore.domain.usecase.GetPopularPlacesUseCase
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collectLatest
 
 class ExploreViewModel @ViewModelInject constructor(
@@ -57,6 +58,7 @@ class ExploreViewModel @ViewModelInject constructor(
             if (popularPlacesLiveData.value == null && featuredPlacesLiveData.value == null)
                 return
         _progressBarVisibilityLiveData.value = visible
+        GlobalScope
     }
 
     override fun onCleared() {
