@@ -99,6 +99,7 @@ class StackViewGroup @JvmOverloads constructor(
                     childrenToRemove.forEach {
                         removeView(it)
                     }
+                    containerViewStateChangeListener?.onViewsRemoved(childrenToRemove)
                 }
             }
         })
@@ -168,8 +169,10 @@ class StackViewGroup @JvmOverloads constructor(
             if (prevChildIndex >= 0)
                 containerViewStateChangeListener?.onViewVisible(getChildAt(prevChildIndex))
             Log.d(TAG, "removeViewWithAnimation: View animated to end.")
-            if (removeView)
+            if (removeView) {
                 super.removeView(view)
+                containerViewStateChangeListener?.onViewsRemoved(listOf(view))
+            }
         }
     }
 

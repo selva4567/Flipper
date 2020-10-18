@@ -14,6 +14,7 @@ import com.selvakumarsm.elasticmodule2.StackLayoutManager
 import com.selvakumarsm.elasticmodule2.StackViewGroup
 import com.selvakumarsm.flipper.R
 import com.selvakumarsm.flipper.loan.view.repayment.RepaymentsAdapter
+import kotlinx.android.synthetic.main.activity_loan.*
 
 class LoanActivity : AppCompatActivity(), StackViewGroup.ContainerViewStateChangeListener {
     private lateinit var stack: StackViewGroup
@@ -114,6 +115,9 @@ class LoanActivity : AppCompatActivity(), StackViewGroup.ContainerViewStateChang
 
     override fun onViewsRemoved(views: List<View>) {
         Log.d(TAG, "onViewsRemoved: ${views.size}")
+        if (views.contains(loanAmountSelectionView)) {
+            btnApplyLoan.visibility = View.VISIBLE
+        }
 
     }
 
