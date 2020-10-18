@@ -27,7 +27,7 @@ class RepaymentsAdapter(private val repayments: MutableList<RepaymentModel> = mu
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepaymentViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_repayment_item1, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_repayment_item, parent, false)
         return RepaymentViewHolder(view)
     }
 

@@ -1,11 +1,8 @@
-package com.selvakumarsm.flipper.loan.view
+package com.selvakumarsm.elasticmodule2
 
 import android.content.Context
-import android.util.Log
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import com.selvakumarsm.elasticmodule2.LayoutManager
 
 class StackLayoutManager(private val context: Context) : LayoutManager {
 
@@ -46,6 +43,34 @@ class StackLayoutManager(private val context: Context) : LayoutManager {
                 ConstraintSet.PARENT_ID,
                 ConstraintSet.BOTTOM
             )
+        }
+    }
+
+    override fun removedViewPosition(
+        view: View,
+        children: Sequence<View>,
+        endConstraint: ConstraintSet
+    ) {
+        endConstraint.apply {
+            connect(
+                view.id,
+                ConstraintSet.START,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.START,
+            )
+            connect(
+                view.id,
+                ConstraintSet.END,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.END,
+            )
+            connect(
+                view.id,
+                ConstraintSet.TOP,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.BOTTOM
+            )
+            clear(view.id, ConstraintSet.BOTTOM)
         }
     }
 

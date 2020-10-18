@@ -9,7 +9,6 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.motion.widget.MotionScene
 import androidx.constraintlayout.motion.widget.TransitionAdapter
 import androidx.constraintlayout.motion.widget.TransitionBuilder
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.children
@@ -80,13 +79,7 @@ class StackViewGroup @JvmOverloads constructor(
         val childrenToRemove = mutableListOf<View>()
         (childIndex + 1 until childCount).forEach {
             val child = getChildAt(it)
-            endScene.clear(child.id, ConstraintSet.BOTTOM)
-            endScene.connect(
-                child.id,
-                ConstraintSet.TOP,
-                ConstraintSet.PARENT_ID,
-                ConstraintSet.BOTTOM
-            )
+           layoutManager!!.removedViewPosition(child, children, endScene)
             childrenToRemove.add(child)
         }
         endScene.applyTo(this)
@@ -95,6 +88,7 @@ class StackViewGroup @JvmOverloads constructor(
             containerTransition.startConstraintSetId,
             containerTransition.endConstraintSetId
         )
+        //TODO - Make this configurable
         setTransitionDuration(1000)
         addTransitionListener(object : TransitionAdapter() {
             override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
@@ -139,6 +133,7 @@ class StackViewGroup @JvmOverloads constructor(
             containerTransition.startConstraintSetId,
             containerTransition.endConstraintSetId
         )
+        //TODO - Make this configurable
         setTransitionDuration(1000)
 
         addTransitionListener(object : TransitionAdapter() {
@@ -156,17 +151,22 @@ class StackViewGroup @JvmOverloads constructor(
         startScene.clone(this)
 
         val endScene = getConstraintSet(containerTransition.endConstraintSetId)
-        applyRemoveConstraint(view.id, endScene)
+        endScene.clone(this)
+        layoutManager!!.removedViewPosition(view, children, endScene)
+        endScene.applyTo(this)
 
         setTransition(
             containerTransition.startConstraintSetId,
             containerTransition.endConstraintSetId
         )
+        //TODO - Make this configurable
         setTransitionDuration(1000)
 
         GlobalScope.launch(Dispatchers.Main) {
             awaitTransitionToEnd()
-            containerViewStateChangeListener?.onViewVisible(getChildAt(indexOfChild(view) - 1))
+            val prevChildIndex = indexOfChild(view) - 1
+            if (prevChildIndex >= 0)
+                containerViewStateChangeListener?.onViewVisible(getChildAt(prevChildIndex))
             Log.d(TAG, "removeViewWithAnimation: View animated to end.")
             if (removeView)
                 super.removeView(view)
@@ -176,13 +176,6 @@ class StackViewGroup @JvmOverloads constructor(
     override fun removeView(view: View?) {
         Log.d(TAG, "removeView: Removing view ${view?.id}")
         super.removeView(view)
-    }
-
-    private fun applyRemoveConstraint(id: Int, scene: ConstraintSet) {
-        scene.clone(this)
-        scene.clear(id, ConstraintSet.BOTTOM)
-        scene.connect(id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
-        scene.applyTo(this)
     }
 
     private suspend fun awaitTransitionToEnd() {
@@ -218,36 +211,6 @@ class StackViewGroup @JvmOverloads constructor(
         }
     }
 
-    private fun constrainToParent(id: Int, scene: ConstraintSet) {
-        scene.clone(this)
-        scene.apply {
-            connect(
-                id,
-                ConstraintSet.START,
-                ConstraintSet.PARENT_ID,
-                ConstraintSet.START,
-            )
-            connect(
-                id,
-                ConstraintSet.TOP,
-                ConstraintSet.PARENT_ID,
-                ConstraintSet.TOP,
-            )
-            connect(
-                id,
-                ConstraintSet.END,
-                ConstraintSet.PARENT_ID,
-                ConstraintSet.END,
-            )
-            connect(
-                id,
-                ConstraintSet.BOTTOM,
-                ConstraintSet.PARENT_ID,
-                ConstraintSet.BOTTOM,
-            )
-        }
-    }
-
     private fun createTransition() {
         val scene = MotionScene(this)
 
@@ -275,15 +238,28 @@ class StackViewGroup @JvmOverloads constructor(
         setScene(scene)
     }
 
-    private fun fromDp(context: Context, inDp: Int): Int {
-        val scale = context.resources.displayMetrics.density
-        return (inDp * scale).toInt()
-    }
 
     interface ContainerViewStateChangeListener {
+        /**
+         * Gets called when a new view is added completely(after animation ends)
+         */
         fun onViewAdded(view: View)
+
+        /**
+         * Gets called when a view/views are removed completely(after animation ends)
+         */
         fun onViewsRemoved(views: List<View>)
+
+        /**
+         * Not Yet Supported
+         */
         fun onViewsHidden(views: List<View>)
+
+        /**
+         * Gets called when view becomes visible again. It happens when any of the top views in the
+         * stack gets removed and this view becomes top view. This won't be called when a view is
+         * added to the stack.
+         */
         fun onViewVisible(view: View)
     }
 

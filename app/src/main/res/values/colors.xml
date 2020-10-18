@@ -16,11 +16,11 @@
     <color name="mediumPurple">#9370DB</color>
 
     <color name="primaryBackground">@color/black4</color>
-    <color name="colorPrimaryText">@color/pureBlack</color>
-    <color name="colorSecondaryText">@color/pureGrey</color>
-    <color name="statusBarColor">@android:color/background_light</color>
-    <color name="colorSecondaryBackground">@android:color/background_light</color>
-    <color name="colorSecondaryBackgroundCompliment">@color/pureGrey</color>
     <color name="colorPrimaryButtonBackground">@color/colorPrimaryDark</color>
     <color name="colorPrimaryButtonText">@color/pureWhite</color>
+    <color name="colorPrimaryText">@color/pureWhite</color>
+    <color name="colorSecondaryText">@color/lightWhite</color>
+    <color name="statusBarColor">@android:color/background_dark</color>
+    <color name="colorSecondaryBackground">#363738</color>
+    <color name="colorSecondaryBackgroundCompliment">@android:color/background_light</color>
 </resources>

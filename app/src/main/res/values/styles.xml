@@ -9,7 +9,7 @@
 
         <!--TODO - For API < 23, do the below changes in code. -->
         <item name="android:statusBarColor">@color/statusBarColor</item>
-        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <style name="PrimaryTextTheme" >
@@ -19,14 +19,20 @@
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
-    <style name="CollapsedPrimaryTextTheme" >
+    <style name="PrimarySubTextTheme" >
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">serif"</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+    </style>
+
+    <style name="CollapsedTextTheme" >
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">serif"</item>
         <item name="android:textColor">@color/colorSecondaryText</item>
     </style>
 
-    <style name="CollapsedSecondaryTextTheme" >
+    <style name="CollapsedSubTextTheme" >
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">serif"</item>

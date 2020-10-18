@@ -9,20 +9,15 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.selvakumarsm.elasticmodule2.ElasticProperties
+import com.selvakumarsm.elasticmodule2.StackLayoutManager
 import com.selvakumarsm.elasticmodule2.StackViewGroup
 import com.selvakumarsm.flipper.R
 import com.selvakumarsm.flipper.loan.repayment.view.RepaymentsAdapter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class LoanActivity : AppCompatActivity(), StackViewGroup.ContainerViewStateChangeListener {
     private lateinit var stack: StackViewGroup
-    private lateinit var fab: FloatingActionButton
-    private lateinit var fabRemove: FloatingActionButton
+    private lateinit var applyLoanBtn: Button
 
     // Select Repayment options view
     private lateinit var selectRepaymentView: View
@@ -40,17 +35,14 @@ class LoanActivity : AppCompatActivity(), StackViewGroup.ContainerViewStateChang
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loan)
+        applyLoanBtn = findViewById(R.id.btnApplyLoan)
+        applyLoanBtn.setOnClickListener {
+            addLoanAmountSelectionView()
+            applyLoanBtn.visibility = View.GONE
+        }
         stack = findViewById(R.id.rootContainer)
         stack.layoutManager = StackLayoutManager(applicationContext)
         stack.containerViewStateChangeListener = this
-        fab = findViewById(R.id.fab)
-        fab.setOnClickListener {
-            addLoanAmountSelectionView()
-        }
-        GlobalScope.launch(Dispatchers.Main) {
-            delay(2000)
-            addLoanAmountSelectionView()
-        }
     }
 
     private fun initBankSelectionView() {
@@ -122,6 +114,7 @@ class LoanActivity : AppCompatActivity(), StackViewGroup.ContainerViewStateChang
 
     override fun onViewsRemoved(views: List<View>) {
         Log.d(TAG, "onViewsRemoved: ${views.size}")
+
     }
 
     override fun onViewsHidden(views: List<View>) {

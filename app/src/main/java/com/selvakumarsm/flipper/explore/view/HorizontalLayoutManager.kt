@@ -101,4 +101,12 @@ class HorizontalLayoutManager(
     override fun endLayoutPosition(view: View, children: Sequence<View>, endConstraint: ConstraintSet) {
         TODO("Not yet implemented")
     }
+
+    override fun removedViewPosition(
+        view: View,
+        children: Sequence<View>,
+        endConstraint: ConstraintSet
+    ) {
+        TODO("Not yet implemented")
+    }
 }

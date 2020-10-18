@@ -46,10 +46,10 @@
 
     <TextView
         android:id="@+id/labelNote"
+        style="@style/PrimarySubTextTheme"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/label_amount_needed_note"
-        android:textSize="16sp" />
+        android:text="@string/label_amount_needed_note" />
 
     <ImageView
         android:id="@+id/ivAmountSelectionDialer"
@@ -60,14 +60,14 @@
 
     <TextView
         android:id="@+id/labelCreditAmount"
+        style="@style/CollapsedSubTextTheme"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/label_emi"
-        android:textSize="16sp" />
+        android:text="@string/label_emi" />
 
     <TextView
         android:id="@+id/creditAmount"
-        style="@style/CollapsedPrimaryTextTheme"
+        style="@style/CollapsedTextTheme"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="$ 4,247 /mo" />
