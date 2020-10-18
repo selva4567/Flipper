@@ -1,4 +1,4 @@
-package com.selvakumarsm.flipper.loan.repayment.view
+package com.selvakumarsm.flipper.loan.view.repayment
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.selvakumarsm.flipper.R
+import com.selvakumarsm.flipper.loan.domain.model.RepaymentModel
 
 class RepaymentsAdapter(private val repayments: MutableList<RepaymentModel> = mutableListOf(
     RepaymentModel("4,247", "12"),

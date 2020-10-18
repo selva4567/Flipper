@@ -13,7 +13,7 @@ import com.selvakumarsm.elasticmodule2.ElasticProperties
 import com.selvakumarsm.elasticmodule2.StackLayoutManager
 import com.selvakumarsm.elasticmodule2.StackViewGroup
 import com.selvakumarsm.flipper.R
-import com.selvakumarsm.flipper.loan.repayment.view.RepaymentsAdapter
+import com.selvakumarsm.flipper.loan.view.repayment.RepaymentsAdapter
 
 class LoanActivity : AppCompatActivity(), StackViewGroup.ContainerViewStateChangeListener {
     private lateinit var stack: StackViewGroup

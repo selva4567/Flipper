@@ -1,4 +1,4 @@
-package com.selvakumarsm.flipper.loan.repayment.view
+package com.selvakumarsm.flipper.loan.domain.model
 
 data class RepaymentModel(private val _amount: String, private val _tenure: String) {
     var amount : String = _amount
