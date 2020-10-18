@@ -9,7 +9,10 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.motion.widget.MotionScene
 import androidx.constraintlayout.motion.widget.TransitionAdapter
 import androidx.constraintlayout.motion.widget.TransitionBuilder
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.view.children
 import kotlinx.coroutines.*
 import kotlin.coroutines.resume
 
@@ -38,16 +41,8 @@ class StackViewGroup @JvmOverloads constructor(
     }
 
     override fun addView(view: View) {
-        if (view !is ElasticProperties)
-            throw IllegalArgumentException("Cannot add views which doesn't implement ElasticProperties")
-        if (layoutManager == null)
-            throw IllegalStateException("Set LayoutManager first before adding any views")
-        view.id = if (view.id == -1) View.generateViewId() else view.id
-        Log.d(TAG, "addView: ViewId ${view.id}")
-        super.addView(view, layoutManager?.getLayoutParams(context))
-        Log.d(TAG, "addMotionView: Total child count $childCount")
-//        layoutManager!!.applyConstraint(view, this, containerTransition)
-        addViewWithAnimation(view)
+        val layoutParams = LayoutParams(MATCH_CONSTRAINT, MATCH_CONSTRAINT)
+        addView(view, layoutParams)
     }
 
     override fun addView(child: View?, index: Int) {
@@ -59,7 +54,15 @@ class StackViewGroup @JvmOverloads constructor(
     }
 
     override fun addView(child: View?, params: ViewGroup.LayoutParams?) {
-        throw IllegalArgumentException("Use addView(view) instead")
+        if (child !is ElasticProperties)
+            throw IllegalArgumentException("Cannot add views which doesn't implement ElasticProperties")
+        if (layoutManager == null)
+            throw IllegalStateException("Set LayoutManager first before adding any views")
+        child.id = if (child.id == -1) View.generateViewId() else child.id
+        Log.d(TAG, "addView: ViewId ${child.id}")
+        super.addView(child, params)
+        Log.d(TAG, "addMotionView: Total child count $childCount")
+        addViewWithAnimation(child)
     }
 
     fun removeViewsOnTopOf(view: View) {
@@ -69,6 +72,7 @@ class StackViewGroup @JvmOverloads constructor(
             Log.d(TAG, "removeViewsOnTopOf: No views found in the stack with id ${view.id}")
             return
         }
+        Log.d(TAG, "removeViewsOnTopOf: Removing from from ${childIndex + 1}")
         val startScene = getConstraintSet(containerTransition.startConstraintSetId)
         startScene.clone(this)
         val endScene = getConstraintSet(containerTransition.endConstraintSetId)
@@ -92,13 +96,15 @@ class StackViewGroup @JvmOverloads constructor(
             containerTransition.endConstraintSetId
         )
         setTransitionDuration(1000)
-        setTransitionListener(object : TransitionAdapter() {
+        addTransitionListener(object : TransitionAdapter() {
             override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
-                Log.d(TAG, "removeViewsOnTopOf: Removed views.")
-                containerViewStateChangeListener?.onViewVisible(view)
-                removeTransitionListener(this)
-                childrenToRemove.forEach {
-                    removeView(it)
+                if (currentId == containerTransition.endConstraintSetId) {
+                    removeTransitionListener(this)
+                    Log.d(TAG, "removeViewsOnTopOf: Removed views.")
+                    containerViewStateChangeListener?.onViewVisible(view)
+                    childrenToRemove.forEach {
+                        removeView(it)
+                    }
                 }
             }
         })
@@ -121,32 +127,12 @@ class StackViewGroup @JvmOverloads constructor(
     private fun addViewWithAnimation(view: View) {
         val startScene = getConstraintSet(containerTransition.startConstraintSetId)
         startScene.clone(this)
-        constrainToParent(view.id, startScene)
-        startScene.clear(view.id, ConstraintSet.BOTTOM)
-        startScene.connect(
-            view.id,
-            ConstraintSet.TOP,
-            ConstraintSet.PARENT_ID,
-            ConstraintSet.BOTTOM
-        )
+        layoutManager!!.startLayoutPosition(view, children, startScene)
         startScene.applyTo(this)
 
         val endScene = getConstraintSet(containerTransition.endConstraintSetId)
         endScene.clone(this)
-        endScene.connect(
-            view.id,
-            ConstraintSet.TOP,
-            ConstraintSet.PARENT_ID,
-            ConstraintSet.TOP,
-            fromDp(rootView.context, (childCount - 1) * 100)
-        )
-        endScene.connect(
-            view.id,
-            ConstraintSet.BOTTOM,
-            ConstraintSet.PARENT_ID,
-            ConstraintSet.BOTTOM
-        )
-
+        layoutManager!!.endLayoutPosition(view, children, endScene)
         endScene.applyTo(this)
 
         setTransition(

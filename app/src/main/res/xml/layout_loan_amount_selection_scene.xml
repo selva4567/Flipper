@@ -104,11 +104,12 @@
         <Constraint android:id="@+id/ivAmountSelectionDialer">
             <Layout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="@+id/guideline_start"
                 app:layout_constraintEnd_toEndOf="@+id/guideline_end"
-                app:layout_constraintTop_toTopOf="@id/labelNote"/>
+                app:layout_constraintTop_toBottomOf="@id/labelNote"
+                app:layout_constraintBottom_toTopOf="@+id/btnProceedToEmi"/>
             <PropertySet android:visibility="invisible"/>
         </Constraint>
         <Constraint android:id="@+id/btnProceedToEmi">

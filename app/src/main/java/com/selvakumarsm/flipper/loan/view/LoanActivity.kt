@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -39,7 +41,7 @@ class LoanActivity : AppCompatActivity(), StackViewGroup.ContainerViewStateChang
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loan)
         stack = findViewById(R.id.rootContainer)
-        stack.layoutManager = StackLayoutManager()
+        stack.layoutManager = StackLayoutManager(applicationContext)
         stack.containerViewStateChangeListener = this
         fab = findViewById(R.id.fab)
         fab.setOnClickListener {
@@ -58,7 +60,9 @@ class LoanActivity : AppCompatActivity(), StackViewGroup.ContainerViewStateChang
         bankSelectionView.setOnClickListener {
             Log.d(TAG, "initBankSelectionView: Clicked")
         }
-        stack.addView(bankSelectionView)
+        val layoutParams = ConstraintLayout.LayoutParams(MATCH_CONSTRAINT, MATCH_CONSTRAINT)
+        layoutParams.topMargin = fromDp(200)
+        stack.addView(bankSelectionView, layoutParams)
     }
 
     private fun initRepaymentView() {
@@ -75,8 +79,11 @@ class LoanActivity : AppCompatActivity(), StackViewGroup.ContainerViewStateChang
         }
         selectRepaymentView.setOnClickListener {
             Log.d(TAG, "initRepaymentView: Clicked")
+            stack.removeViewsOnTopOf(it)
         }
-        stack.addView(selectRepaymentView)
+        val layoutParams = ConstraintLayout.LayoutParams(MATCH_CONSTRAINT, MATCH_CONSTRAINT)
+        layoutParams.topMargin = fromDp(100)
+        stack.addView(selectRepaymentView, layoutParams)
     }
 
     private fun addLoanAmountSelectionView() {
@@ -91,6 +98,11 @@ class LoanActivity : AppCompatActivity(), StackViewGroup.ContainerViewStateChang
             stack.removeViewsOnTopOf(it)
         }
         stack.addView(loanAmountSelectionView)
+    }
+
+    private fun fromDp(inDp: Int): Int {
+        val scale = application.resources.displayMetrics.density
+        return (inDp * scale).toInt()
     }
 
     override fun onBackPressed() {
